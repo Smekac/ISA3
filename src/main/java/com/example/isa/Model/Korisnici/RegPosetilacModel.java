@@ -11,7 +11,9 @@ import java.io.Serializable;
 @DiscriminatorValue("REGPOSETILAC")
 public class RegPosetilacModel extends Korisnik implements Serializable{
 
-    public RegPosetilacModel(){}
+    public RegPosetilacModel(){
+        super();
+    }
 
 }
 
