@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.core.env.Environment;
@@ -22,10 +24,7 @@ public class RegPosetilacController {
     @Autowired
     private RegPosetilacService regPosetilacService;
 
-    @Autowired
-    private Environment env;
-    @Autowired
-    private JavaMailSender mailSender;
+
 
     @RequestMapping(
             value = "/getRegPosetilac",
@@ -36,15 +35,23 @@ public class RegPosetilacController {
         return new ResponseEntity<>(RegisteredUsers, HttpStatus.OK);
     }
 
+
+    //1. registracija korisnika
     @RequestMapping(
             value = "/createRegPosetilac",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RegPosetilacModel> createRegisteredUser(@RequestBody RegPosetilacModel RegisteredUser) {
+    public ResponseEntity<?> createRegisteredUser(@Validated @RequestBody RegPosetilacModel newUser,Errors errors ) {
 
-        RegPosetilacModel savedRegisteredUser = regPosetilacService.save(RegisteredUser);
-        sendEmai(RegisteredUser);
+        if(errors.hasErrors())
+        {
+            return  new ResponseEntity<String>(errors.getAllErrors().toString(), HttpStatus.BAD_REQUEST);
+        }
+
+        RegPosetilacModel savedRegisteredUser = regPosetilacService.save(newUser);
+        regPosetilacService.sendEmai(savedRegisteredUser);
+
         return new ResponseEntity<>(savedRegisteredUser, HttpStatus.CREATED);
     }
 
@@ -69,26 +76,6 @@ public class RegPosetilacController {
     }
 
 
-    public boolean sendEmai(RegPosetilacModel regPosetilac){
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(regPosetilac.getEmail());
-
-        mail.setSubject("Potvrda mail adrese");
-
-        mail.setText("http://localhost:8080/potvrdaMaila/"+regPosetilac.getId());
-
-        mail.setTo(regPosetilac.getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
-
-
-        try {
-            mailSender.send(mail);
-        }catch (MailException mex){
-            System.out.println(mex);
-        }
-        System.out.println("Poslao na " + regPosetilac.getEmail());
-        return false;
-    }
 
 }
