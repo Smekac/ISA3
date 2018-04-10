@@ -76,6 +76,12 @@ public class RegPosetilacController {
     }
 
 
+    @RequestMapping(value = "/potvrdaMaila/{id}",method = RequestMethod.GET)
+    public void potvrdaEmailAdrese(@PathVariable("id") String idKorisnika){
+        Long id = Long.parseLong(idKorisnika);
+        regPosetilacService.confirmEmailAdress(id);
+
+    }
 
 
 }

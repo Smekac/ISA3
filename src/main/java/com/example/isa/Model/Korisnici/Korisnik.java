@@ -50,6 +50,9 @@ public abstract class Korisnik implements Serializable{
     @Column(nullable = false)
     private String number;
 
+    @Column(name="type", nullable=false, updatable=false, insertable=false)
+    private String tipKorisnika;
+
     public Korisnik(){}
 
     public Korisnik(String username, String password, String ime, String prezime, String email, String grad, String number) {
@@ -124,5 +127,13 @@ public abstract class Korisnik implements Serializable{
 
     public void setGrad(String grad) {
         this.grad = grad;
+    }
+
+    public String getTipKorisnika() {
+        return tipKorisnika;
+    }
+
+    public void setTipKorisnika(String tipKorisnika) {
+        this.tipKorisnika = tipKorisnika;
     }
 }
