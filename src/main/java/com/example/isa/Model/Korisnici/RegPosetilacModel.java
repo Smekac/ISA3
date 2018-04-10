@@ -1,5 +1,8 @@
 package com.example.isa.Model.Korisnici;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -12,6 +15,8 @@ import java.io.Serializable;
 public class RegPosetilacModel extends Korisnik implements Serializable{
 
     // da li je potvrdio mail adresu
+    @JsonProperty
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean accepted;
 
     public RegPosetilacModel(){
