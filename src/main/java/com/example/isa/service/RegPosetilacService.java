@@ -17,4 +17,6 @@ public interface RegPosetilacService {
 
     void delete(Long id);
 
+    boolean sendEmai(RegPosetilacModel regPosetilac);
+
 }

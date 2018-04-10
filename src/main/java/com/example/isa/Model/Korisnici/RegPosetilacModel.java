@@ -11,7 +11,21 @@ import java.io.Serializable;
 @DiscriminatorValue("REGPOSETILAC")
 public class RegPosetilacModel extends Korisnik implements Serializable{
 
-    public RegPosetilacModel(){}
+    // da li je potvrdio mail adresu
+    private boolean accepted;
 
+    public RegPosetilacModel(){
+        super();
+        this.accepted =false;
+    }
+
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
 }
 

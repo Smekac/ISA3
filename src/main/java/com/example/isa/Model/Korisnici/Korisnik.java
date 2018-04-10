@@ -1,12 +1,15 @@
 package com.example.isa.Model.Korisnici;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
  * Created by Smekac on 1/31/2018.
+ * Modified: Jovana
  */
 
 @Entity
@@ -16,27 +19,34 @@ public abstract class Korisnik implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true,nullable = false)                 // Sve bi ovako trebao da napravi u bazi
+    @Column(unique = true,nullable = false)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false,unique = true)
     private String username;
 
+    @NotBlank
     @Column(nullable = false)
     private String password;
 
+    @NotBlank
     @Column(nullable = false)
     private String ime;
 
+    @NotBlank
     @Column(nullable = false)
     private String prezime;
 
+    @Email
     @Column(nullable = false, unique = true)
-    private String email;       // Email ima tip
+    private String email;
 
+    @NotBlank
     @Column(nullable = false)
     private String grad;
 
+    @Size(min = 6)
     @Column(nullable = false)
     private String number;
 
