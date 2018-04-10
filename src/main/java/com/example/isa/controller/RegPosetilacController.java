@@ -38,7 +38,7 @@ public class RegPosetilacController {
 
     //1. registracija korisnika
     @RequestMapping(
-            value = "/createRegPosetilac",
+            value = "/register",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

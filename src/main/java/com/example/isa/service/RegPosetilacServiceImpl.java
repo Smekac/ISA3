@@ -76,12 +76,11 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
 
 
     @Override
-    public boolean confirmEmailAdress(Long id) {
+    public void confirmEmailAdress(Long id) {
 
         RegPosetilacModel kor = regPosetilacRepository.findOne(id);
         kor.setAccepted(true);
         regPosetilacRepository.save(kor);
 
-        return false;
     }
 }

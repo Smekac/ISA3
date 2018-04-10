@@ -22,30 +22,31 @@ public class KorisnikController {
 
     @Autowired
     KorisnikService korisnikService;
-    
+
     @RequestMapping(
             value = "/logIn",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody Credentials credentials){
+
         Korisnik korisnik = korisnikService.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword());
+
         if(korisnik == null)
-            return new ResponseEntity<String> ("Neispravna mail adresa ili lozinka", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String> ("Neispravna email adresa ili lozinka", HttpStatus.BAD_REQUEST);
 
        if(korisnik.getTipKorisnika().equals("REGPOSETILAC"))
        {
            RegPosetilacModel regPos = (RegPosetilacModel) korisnik;
-           if(!regPos.isAccepted()){
+           if(!regPos.isAccepted())
+           {
                return new ResponseEntity<String>("Potvrdite email adresu", HttpStatus.BAD_REQUEST);
            }
        }
-        ServletRequestAttributes attr = (ServletRequestAttributes)
-                RequestContextHolder.currentRequestAttributes();
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session= attr.getRequest().getSession(true);
-
         session.setAttribute("korisnik", korisnik);
-
 
         return  new ResponseEntity<String>( "Logovanje je uspjesno", HttpStatus.OK);
 

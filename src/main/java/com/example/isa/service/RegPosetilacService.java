@@ -19,5 +19,5 @@ public interface RegPosetilacService {
 
     boolean sendEmai(RegPosetilacModel regPosetilac);
 
-    boolean confirmEmailAdress(Long id);
+    void confirmEmailAdress(Long id);
 }
