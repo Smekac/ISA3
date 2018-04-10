@@ -3,10 +3,14 @@ package com.example.isa.Model.Rekviziti;
 import com.example.isa.Model.Korisnici.AdminFanModel;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Ustanova;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +29,9 @@ public class NoviRekvizit extends Rekvizit implements Serializable{
     @ManyToOne(optional = false)
     private AdminFanModel adminFan;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="registrovani_korisnik_id") // IZ sql.importa kako se kolona zove koju hocu da mi vracaa, ......
     @ManyToOne(optional = true)
     private RegPosetilacModel registrovaniKorisnik;
 
