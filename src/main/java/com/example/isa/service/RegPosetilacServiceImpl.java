@@ -72,4 +72,15 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
         System.out.println("Poslao na " + regPosetilac.getEmail());
         return true;
     }
+
+
+
+    @Override
+    public void confirmEmailAdress(Long id) {
+
+        RegPosetilacModel kor = regPosetilacRepository.findOne(id);
+        kor.setAccepted(true);
+        regPosetilacRepository.save(kor);
+
+    }
 }

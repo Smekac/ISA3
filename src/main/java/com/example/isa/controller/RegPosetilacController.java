@@ -38,7 +38,7 @@ public class RegPosetilacController {
 
     //1. registracija korisnika
     @RequestMapping(
-            value = "/createRegPosetilac",
+            value = "/register",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +76,12 @@ public class RegPosetilacController {
     }
 
 
+    @RequestMapping(value = "/potvrdaMaila/{id}",method = RequestMethod.GET)
+    public void potvrdaEmailAdrese(@PathVariable("id") String idKorisnika){
+        Long id = Long.parseLong(idKorisnika);
+        regPosetilacService.confirmEmailAdress(id);
+
+    }
 
 
 }
