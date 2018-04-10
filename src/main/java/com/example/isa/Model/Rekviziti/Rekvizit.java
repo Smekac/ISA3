@@ -1,5 +1,7 @@
 package com.example.isa.Model.Rekviziti;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +15,8 @@ public abstract class Rekvizit {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GenericGenerator(name="announcement",strategy = "increment")
+    @GeneratedValue(generator = "announcement")
     @Column(nullable = false)
     private Long id;
 

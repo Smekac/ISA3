@@ -3,6 +3,9 @@ package com.example.isa.Model.Rekviziti;
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.AdminFanModel;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.org.apache.regexp.internal.RE;
 
 import javax.persistence.*;
@@ -26,11 +29,20 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @Column(name = "accepted_bid", nullable = false)          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)
     private boolean acceptedBid;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="admin_fan_id")
+    //@ManyToOne(optional = false)
     @ManyToOne(optional = true)
     private AdminFanModel adminFan;
 
-    @ManyToOne(optional = false)
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="registrovani_korisnik_id") // IZ sql.importa kako se kolona zove koju hocu da mi vracaa, ......
+    @ManyToOne(optional = true)
     private RegPosetilacModel registrovaniKorisnik;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
     private Set<Bid> bids;
 

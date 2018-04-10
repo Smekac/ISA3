@@ -26,6 +26,9 @@ public class NoviRekvizit extends Rekvizit implements Serializable{
     @Column(nullable = false)
     private float cena;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="admin_fan_id")
     @ManyToOne(optional = false)
     private AdminFanModel adminFan;
 

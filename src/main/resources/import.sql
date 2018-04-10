@@ -13,7 +13,8 @@ INSERT INTO novi_rekvizit (id, datum_kreiranja, naslov,opis, cena, admin_fan_id,
 INSERT INTO novi_rekvizit (id, datum_kreiranja, naslov,opis, cena, admin_fan_id, registrovani_korisnik_id,ustanova_id) VALUES (2, '2018-01-24 03:55:56', 'Majica', 'Majica sa posterom Hari Potera', 150, 1, 5,1);
 
 INSERT INTO korisceni_rekvizit (id, datum_kreiranja, naslov,opis, active_until,accepted_bid, status, registrovani_korisnik_id) VALUES (1, '2018-01-29 02:32:40', 'Kacket', 'Licni kacket od Stivena Spilberga prilikom snimanja Avatar filma jednog od najvecih ostvarenja', '2018-01-29 02:32:45',0, 'NACEKANJU', 5);
-INSERT INTO korisceni_rekvizit (id, datum_kreiranja, naslov,opis, active_until,accepted_bid, status, registrovani_korisnik_id) VALUES (2, '2018-01-27 02:32:40', 'Sesir', 'Sesir glavnog junaka iz filma Pirati sa Kariba', '2018-02-15 02:32:45',0, 'NACEKANJU', 4);
+INSERT INTO korisceni_rekvizit (id, datum_kreiranja, naslov,opis, active_until,accepted_bid, status, registrovani_korisnik_id) VALUES (2, '2018-01-27 02:32:40', 'Sesir', 'Sesir glavnog junaka iz filma Pirati sa Kariba', '2018-02-15 02:32:45',0, 'NACEKANJU', 5);
 
 INSERT INTO bid (accepted, date_created, cena, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, '2018-01-29 03:25:24', 250, 1, 5);
-INSERT INTO bid (accepted, date_created, cena, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, '2018-02-01 17:25:24', 260, 1, 4);
+INSERT INTO bid (accepted, date_created, cena, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, '2018-02-01 17:25:24', 260, 1, 6);
+INSERT INTO bid (accepted, cena, date_created,korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, 456, '2018-03-30 22:09:05', 2, 6);

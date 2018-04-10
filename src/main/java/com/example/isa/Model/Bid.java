@@ -3,7 +3,10 @@ package com.example.isa.Model;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,11 +32,19 @@ public class Bid implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)   //Proveriti !
     private Date dateCreated;
 
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityReference(alwaysAsId = true)                   //  Vezano za referencijalni integritet .....
+    @JoinColumn(name="registrovani_korisnik_id")
     @ManyToOne(optional = false)
     private RegPosetilacModel registrovaniKorisnik;
 
+
+    // @JsonIgnore Ne vraca citav taj objekat ....
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="korisceni_rekvizit_id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private KorisceniRekvizit korisceniRekvizit;
 
 
