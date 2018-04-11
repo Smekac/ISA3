@@ -27,6 +27,9 @@ public abstract class Rekvizit {
     private String opis;
 
     @Column
+    private String image;
+
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumKreiranja;
 
@@ -60,6 +63,14 @@ public abstract class Rekvizit {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getDatumKreiranja() {

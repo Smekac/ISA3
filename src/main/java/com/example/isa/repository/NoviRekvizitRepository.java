@@ -16,4 +16,6 @@ public interface NoviRekvizitRepository extends JpaRepository<NoviRekvizit,Long>
     NoviRekvizit save(NoviRekvizit noviRekvizit);
 
     void delete(Long id);
+
+    List<NoviRekvizit> findByRegistrovaniKorisnikIsNull();
 }

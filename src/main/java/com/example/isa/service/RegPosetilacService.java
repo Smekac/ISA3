@@ -20,4 +20,6 @@ public interface RegPosetilacService {
     boolean sendEmai(RegPosetilacModel regPosetilac);
 
     void confirmEmailAdress(Long id);
+
+    RegPosetilacModel findByUsername(String username);
 }

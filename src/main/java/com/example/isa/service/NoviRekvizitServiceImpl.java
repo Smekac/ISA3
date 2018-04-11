@@ -37,4 +37,10 @@ public class NoviRekvizitServiceImpl implements  NoviRekvizitService{
         noviRekvizitReepozitori.delete(id);
     }
 
+    @Override
+    public List<NoviRekvizit> findByRegistrovaniKorisnikIsNull() {
+        return noviRekvizitReepozitori.findByRegistrovaniKorisnikIsNull();
+    }
+
+
 }

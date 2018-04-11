@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * Created by Smekac on 2/2/2018.
  */
+
+@RequestMapping(value = "/KorisceniRekvizit")
 @RestController
 public class KorisceniRekvizitController {
 

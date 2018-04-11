@@ -1,7 +1,11 @@
 package com.example.isa.controller;
 
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
+import com.example.isa.Model.Ustanova;
 import com.example.isa.service.NoviRekvizitService;
+import com.example.isa.service.RegPosetilacService;
+import com.example.isa.service.UstanovaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,14 +17,22 @@ import java.util.List;
 /**
  * Created by Smekac on 2/2/2018.
  */
+
+@RequestMapping(value = "/noviRekvizit")
 @RestController
 public class NoviRekvizitController {
 
     @Autowired
     private NoviRekvizitService noviRekvizitService;
 
+    @Autowired
+    private RegPosetilacService regPosetilacService;
+
+    @Autowired
+    private UstanovaService ustanovaService;
+
     @RequestMapping(
-            value = "/getNoviRekvizit",
+            value = "/sve",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<NoviRekvizit>> getPropNews() {
@@ -28,28 +40,83 @@ public class NoviRekvizitController {
         return new ResponseEntity<>(PropNews, HttpStatus.OK);
     }
 
+    //vraca one koji nisu rezervisani tj. nisu zauzetii
     @RequestMapping(
-            value = "/createNoviRekvizit",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NoviRekvizit> createPropNew(@RequestBody NoviRekvizit PropNew) {
-        NoviRekvizit savedPropNew = noviRekvizitService.save(PropNew);
-        return new ResponseEntity<>(savedPropNew, HttpStatus.CREATED);
+    public ResponseEntity<List<NoviRekvizit>> getNewProps() {
+        List<NoviRekvizit> newProps = (List<NoviRekvizit>) noviRekvizitService.findByRegistrovaniKorisnikIsNull();
+        return new ResponseEntity<>(newProps, HttpStatus.OK);
     }
 
     @RequestMapping(
-            value = "/updateNoviRekvizit",
+            value = "/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NoviRekvizit> getNewProp(@PathVariable Long id){
+        NoviRekvizit newProp = noviRekvizitService.findOne(id);
+        return new ResponseEntity<>(newProp, HttpStatus.OK);
+    }
+//====
+//id filma/predstave
+@RequestMapping(
+        value = "/{id}",
+        method = RequestMethod.POST,
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @RequestBody NoviRekvizit newProp, @PathVariable("id") Long id) {
+    Ustanova show = ustanovaService.findOne(id);
+    RegPosetilacModel User = regPosetilacService.findByUsername(REG.getUsername());     // Menjati sve sto je vezano za reg posetioca, posto treba user sa rolama
+    newProp.setUstanova(show);
+    // newProp.setAdminFan(); //valjda taj korisnik tj. rekvizit ima svog admin-fana ......
+    NoviRekvizit savedNewProp = noviRekvizitService.save(newProp);
+    return new ResponseEntity<>(savedNewProp, HttpStatus.CREATED);
+}
+    //==========  !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+    @RequestMapping(
+            value = "/reservation/{id}",
+            method = RequestMethod.GET)
+    public ResponseEntity<NoviRekvizit> reservationNewProp(@PathVariable("id") Long id){
+        NoviRekvizit newProp = noviRekvizitService.findOne(id);
+        newProp.setRegistrovaniKorisnik(regPosetilacService.findOne(5L));
+        noviRekvizitService.save(newProp);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+//    @RequestMapping(
+//            value = "/createNoviRekvizit",
+//            method = RequestMethod.POST,
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<NoviRekvizit> createPropNew(@RequestBody NoviRekvizit PropNew) {
+//        NoviRekvizit savedPropNew = noviRekvizitService.save(PropNew);
+//        return new ResponseEntity<>(savedPropNew, HttpStatus.CREATED);
+//    }
+
+    @RequestMapping(
+            value = "/{id}",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NoviRekvizit> updatePropNew(@RequestBody NoviRekvizit noviRekvizit) {
-        NoviRekvizit updatedPropNew = noviRekvizitService.save(noviRekvizit);
-        return new ResponseEntity<>(updatedPropNew, HttpStatus.OK);
+    public ResponseEntity<NoviRekvizit> updatePropNew(@RequestBody NoviRekvizit noviRekvizit,@PathVariable Long id) {
+//        NoviRekvizit updatedPropNew = noviRekvizitService.save(noviRekvizit);
+//        return new ResponseEntity<>(updatedPropNew, HttpStatus.OK);
+        Ustanova show = ustanovaService.findOne(id);
+        NoviRekvizit old = noviRekvizitService.findOne(noviRekvizit.getId());
+        old.setUstanova(show);
+        old.setNaslov(noviRekvizit.getNaslov());
+        old.setOpis(noviRekvizit.getOpis());
+        old.setImage(noviRekvizit.getImage());
+        old.setCena(noviRekvizit.getCena());
+        NoviRekvizit updatedNewProp = noviRekvizitService.save(old);
+        return new ResponseEntity<>(updatedNewProp, HttpStatus.CREATED);
     }
 
     @RequestMapping(
-            value = "/deleteNoviRekvizit/{id}",
+            value = "/{id}",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

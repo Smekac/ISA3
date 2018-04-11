@@ -17,4 +17,6 @@ public interface RegPosetilacRepository extends JpaRepository<RegPosetilacModel,
     RegPosetilacModel save(RegPosetilacModel regUser);
 
     void delete(Long id);
+
+    RegPosetilacModel findByUsername(String username);
 }

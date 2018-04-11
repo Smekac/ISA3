@@ -83,4 +83,10 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
         regPosetilacRepository.save(kor);
 
     }
+
+    @Override
+    public RegPosetilacModel findByUsername(String username) {
+        return regPosetilacRepository.findByUsername(username);
+    }
+
 }

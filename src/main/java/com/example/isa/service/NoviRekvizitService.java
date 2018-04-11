@@ -17,4 +17,6 @@ public interface NoviRekvizitService {
 
     void delete(Long id);
 
+    List<NoviRekvizit> findByRegistrovaniKorisnikIsNull();
+
 }
