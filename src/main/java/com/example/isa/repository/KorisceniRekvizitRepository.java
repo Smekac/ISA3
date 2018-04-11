@@ -1,6 +1,7 @@
 package com.example.isa.repository;
 
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
+import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -18,4 +19,9 @@ public interface KorisceniRekvizitRepository extends JpaRepository<KorisceniRekv
 
     void delete(Long id);
 
+    List<KorisceniRekvizit> findByAdminFanIsNotNull();
+
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita korisceniRekvizit);
+                            // po imenu 'skrpljen upit xD'
 }
+

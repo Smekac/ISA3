@@ -1,6 +1,7 @@
 package com.example.isa.service;
 
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
+import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 
 import java.util.List;
 
@@ -16,5 +17,9 @@ public interface KorisceniRekvizitService {
     KorisceniRekvizit save(KorisceniRekvizit propUsed);
 
     void delete(Long id);
+
+    List<KorisceniRekvizit> findByAdminFanIsNotNull();
+
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita tipKoriscenogRekvizita);
 
 }

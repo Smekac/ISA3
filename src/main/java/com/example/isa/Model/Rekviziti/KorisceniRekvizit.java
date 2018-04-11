@@ -27,7 +27,8 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     private TipKoriscenogRekvizita status;
 
     @Column(name = "accepted_bid", nullable = false)          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)
-    private boolean acceptedBid;
+    private Long acceptedBid;
+            //boolean
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
     @JsonIdentityReference(alwaysAsId = true)
@@ -66,11 +67,11 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     }
 
 
-    public boolean isAcceptedBid() {
+    public Long isAcceptedBid() {
         return acceptedBid;
     }
 
-    public void setAcceptedBid(boolean acceptedBid) {
+    public void setAcceptedBid(Long acceptedBid) {
         this.acceptedBid = acceptedBid;
     }
 

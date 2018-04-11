@@ -1,10 +1,12 @@
 package com.example.isa.service;
 
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
+import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import com.example.isa.repository.KorisceniRekvizitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,5 +38,16 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
     public void delete(Long id) {
         korisceniRekvizitRepository.delete(id);
     }
+
+    @Override
+    public List<KorisceniRekvizit> findByAdminFanIsNotNull() {
+        return korisceniRekvizitRepository.findByAdminFanIsNotNull();
+    }
+
+    @Override
+    public List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(Date date, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
+        return korisceniRekvizitRepository.findByActiveUntilGreaterThanAndStatusEquals(date,tipKoriscenogRekvizita);
+    }
+
 
 }
