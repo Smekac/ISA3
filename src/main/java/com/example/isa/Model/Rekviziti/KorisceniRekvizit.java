@@ -45,7 +45,7 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name="registrovani_korisnik_id") // IZ sql.importa kako se kolona zove koju hocu da mi vracaa, ......
     @ManyToOne(optional = true)
-    private Korisnik registrovaniKorisnik;  // RegPosetilacModel
+    private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit",cascade = CascadeType.REMOVE)       //mappedBy = "propUsed"
@@ -87,11 +87,11 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
         this.adminFan = adminFan;
     }
 
-    public Korisnik getRegistrovaniKorisnik() {
+    public RegPosetilacModel getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(Korisnik registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(RegPosetilacModel registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
