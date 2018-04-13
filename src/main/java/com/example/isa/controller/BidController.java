@@ -92,7 +92,7 @@ public class BidController {
     }
 
     @RequestMapping(
-            value = "/KorisceniRekvizit/{id}",
+            value = "/used-prop/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Bid>> getBidByUsedProp(@PathVariable("id") Long id) {

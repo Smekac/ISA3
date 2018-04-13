@@ -25,8 +25,6 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
     @Autowired
     private KorisnikService korisnikService;
 
-    @Autowired
-    private RegPosetilacService regPosetilacService;
     @Override
     public List<KorisceniRekvizit> findAll() {
         return korisceniRekvizitRepository.findAll();
@@ -59,12 +57,17 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
 
     @Override
     public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {
-        usedProp.setStatus(TipKoriscenogRekvizita.NACEKANJU);
-        usedProp.setRegistrovaniKorisnik(regPosetilacService.findByUsername(username));
-        usedProp.setDatumKreiranja(new java.util.Date());
-        usedProp.setBids( new ArrayList<Bid>());
-        return save(usedProp);
+        return null;
     }
+
+//    @Override
+//    public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {
+//        usedProp.setStatus(TipKoriscenogRekvizita.NACEKANJU);
+//        usedProp.setRegistrovaniKorisnik(korisnikService.findByUsername(username));
+//        usedProp.setDatumKreiranja(new java.util.Date());
+//        usedProp.setBids( new ArrayList<Bid>());
+//        return save(usedProp);
+//    }
 
 
 }

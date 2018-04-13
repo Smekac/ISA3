@@ -24,7 +24,7 @@ public class Bid implements Serializable {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Integer cena;
+    private Integer price;
 
     @Column(nullable = false)
     private boolean accepted;
@@ -49,6 +49,7 @@ public class Bid implements Serializable {
     private KorisceniRekvizit korisceniRekvizit;
 
 
+
     public Bid() {
 
     }
@@ -61,12 +62,13 @@ public class Bid implements Serializable {
         this.id = id;
     }
 
+
     public Integer getPrice() {
-        return cena;
+        return price;
     }
 
     public void setPrice(Integer price) {
-        this.cena = price;
+        this.price = price;
     }
 
     public boolean isAccepted() {

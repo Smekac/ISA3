@@ -29,7 +29,7 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipKoriscenogRekvizita status;
 
-    @Column(name = "accepted_bid", nullable = false)          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)
+    @Column(name = "accepted_bid")          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)  , nullable = false bila greska
     private Long acceptedBid;
             //boolean
 
@@ -48,7 +48,7 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit",cascade = CascadeType.REMOVE)       //mappedBy = "propUsed"
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
     private List<Bid> bids;
 
     public KorisceniRekvizit(){}
