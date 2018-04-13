@@ -17,6 +17,6 @@ INSERT INTO korisceni_rekvizit (id, datum_kreiranja,image, naslov,opis, active_u
 INSERT INTO korisceni_rekvizit (id, datum_kreiranja,image, naslov,opis, active_until,accepted_bid, status, registrovani_korisnik_id) VALUES (2, '2018-01-27 02:32:40', 'http://www.costumes.rs/wp-content/uploads/store/products/images/135701999083594.jpg','Sesir', 'Sesir glavnog junaka iz filma Pirati sa Kariba', '2018-02-15 02:32:45',0, 'NACEKANJU', 5);
 INSERT INTO korisceni_rekvizit (id, datum_kreiranja, image, naslov,opis, active_until,accepted_bid, status, registrovani_korisnik_id) VALUES (3, '2018-01-27 01:32:40','http://www.mozzartsport.com/upload/OldMozzartImages/img/news/f/5/5/14766131048363.jpg' ,'Dres', 'Dres licno potpisan od Ramba Petkovica', '2018-02-15 02:32:45',0, 'PRIHVACEN', 6);
 
-INSERT INTO bid (accepted, date_created, cena, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, '2018-01-29 03:25:24', 250, 1, 5);
-INSERT INTO bid (accepted, date_created, cena, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, '2018-02-01 17:25:24', 260, 1, 6);
-INSERT INTO bid (accepted, cena, date_created,korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, 456, '2018-03-30 22:09:05', 2, 6);
+INSERT INTO bid (accepted, date_created, price, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, '2018-01-29 03:25:24', 250, 1, 5);
+INSERT INTO bid (accepted, date_created, price, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, '2018-02-01 17:25:24', 260, 1, 6);
+INSERT INTO bid (accepted, price, date_created,korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (1, 456, '2018-03-30 22:09:05', 2, 6);

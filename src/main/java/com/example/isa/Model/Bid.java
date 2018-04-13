@@ -1,6 +1,7 @@
 package com.example.isa.Model;
 
 
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -23,7 +24,7 @@ public class Bid implements Serializable {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Integer cena;
+    private Integer price;
 
     @Column(nullable = false)
     private boolean accepted;
@@ -37,7 +38,7 @@ public class Bid implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)                   //  Vezano za referencijalni integritet .....
     @JoinColumn(name="registrovani_korisnik_id")
     @ManyToOne(optional = false)
-    private RegPosetilacModel registrovaniKorisnik;
+    private Korisnik registrovaniKorisnik;
 
 
     // @JsonIgnore Ne vraca citav taj objekat ....
@@ -46,6 +47,7 @@ public class Bid implements Serializable {
     @JoinColumn(name="korisceni_rekvizit_id")
     @ManyToOne(optional = false)
     private KorisceniRekvizit korisceniRekvizit;
+
 
 
     public Bid() {
@@ -60,12 +62,13 @@ public class Bid implements Serializable {
         this.id = id;
     }
 
+
     public Integer getPrice() {
-        return cena;
+        return price;
     }
 
     public void setPrice(Integer price) {
-        this.cena = price;
+        this.price = price;
     }
 
     public boolean isAccepted() {
@@ -84,11 +87,11 @@ public class Bid implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public RegPosetilacModel getRegistrovaniKorisnik() {
+    public Korisnik getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(RegPosetilacModel registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(Korisnik registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 

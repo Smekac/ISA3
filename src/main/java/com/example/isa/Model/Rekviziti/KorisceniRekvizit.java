@@ -2,15 +2,18 @@ package com.example.isa.Model.Rekviziti;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.AdminFanModel;
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.org.apache.regexp.internal.RE;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,7 +29,7 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipKoriscenogRekvizita status;
 
-    @Column(name = "accepted_bid", nullable = false)          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)
+    @Column(name = "accepted_bid")          //privremeno(Trebalo bi jedan na jedan) (@OneToOne?)  , nullable = false bila greska
     private Long acceptedBid;
             //boolean
 
@@ -42,10 +45,11 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name="registrovani_korisnik_id") // IZ sql.importa kako se kolona zove koju hocu da mi vracaa, ......
     @ManyToOne(optional = true)
-    private RegPosetilacModel registrovaniKorisnik;
+    private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
-    private Set<Bid> bids;
+    private List<Bid> bids;
 
     public KorisceniRekvizit(){}
 
@@ -91,11 +95,11 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
-    public Set<Bid> getBids() {
+    public List<Bid> getBids() {
         return bids;
     }
 
-    public void setBids(Set<Bid> bids) {
+    public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
 }

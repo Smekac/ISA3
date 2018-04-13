@@ -18,5 +18,10 @@ public class KorisnikServiceImpl implements KorisnikService {
         return korisnikRepository.findByEmailAndPassword(email,password);
     }
 
+    @Override
+    public Korisnik findByUsername(String username) {
+        return korisnikRepository.findByUsername(username);
+    }
+
 
 }
