@@ -2,6 +2,8 @@ package com.example.isa.service;
 
 
 import com.example.isa.Model.Bid;
+import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by Ivan V. on 29-Jan-18
+ * Created by Smekac. on 28-Jan-16
  */
 @Service
 public class BidServiceImpl implements BidService {
@@ -35,6 +37,16 @@ public class BidServiceImpl implements BidService {
     @Override
     public void delete(Long id) {
         bidRepository.delete(id);
+    }
+
+    @Override
+    public Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(Korisnik korisnik, KorisceniRekvizit korisceniRekvizit) {
+        return bidRepository.findByRegistrovaniKorisnikAndKorisceniRekvizit(korisnik,korisceniRekvizit);
+    }
+
+    @Override
+    public List<Bid> findByKorisceniRekvizit(KorisceniRekvizit korisceniRekvizit) {
+        return bidRepository.findByKorisceniRekvizit(korisceniRekvizit);
     }
 
 }

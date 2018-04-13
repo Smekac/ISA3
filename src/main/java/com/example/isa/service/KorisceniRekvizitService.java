@@ -14,12 +14,14 @@ public interface KorisceniRekvizitService {
 
     KorisceniRekvizit findOne(Long id);
 
-    KorisceniRekvizit save(KorisceniRekvizit propUsed);
+    KorisceniRekvizit save(KorisceniRekvizit korisceniRekvizit);
 
     void delete(Long id);
 
     List<KorisceniRekvizit> findByAdminFanIsNotNull();
 
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita tipKoriscenogRekvizita);
+
+    KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp);
 
 }

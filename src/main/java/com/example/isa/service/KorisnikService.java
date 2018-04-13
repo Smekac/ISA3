@@ -6,4 +6,6 @@ public interface KorisnikService {
 
     Korisnik findByEmailAndPassword(String email, String password);
 
+    Korisnik findByUsername(String username);
+
 }

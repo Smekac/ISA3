@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -91,14 +92,14 @@ public class KorisceniRekvizitController {
     }
 
 
-//    @RequestMapping(
-//            method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<KorisceniRekvizit> createPropUsed(Principal principal, @RequestBody UsedProp usedProp) {
-//        usedProp = usedPropService.createUsedProp(principal.getName(),usedProp);
-//        return new ResponseEntity<>(usedProp, HttpStatus.CREATED);
-//    }
+    @RequestMapping(
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KorisceniRekvizit> createPropUsed(Principal principal, @RequestBody KorisceniRekvizit usedProp) {
+        usedProp = korisceniRekvizitService.createUsedProp(principal.getName(),usedProp);
+        return new ResponseEntity<>(usedProp, HttpStatus.CREATED);
+    }
 
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -128,16 +129,16 @@ public class KorisceniRekvizitController {
 //
 //    }
 //
-//    @RequestMapping(
-//            value = "/kreirajKorisceniRekvizit",
-//            method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public ResponseEntity<KorisceniRekvizit> kreirajAdminaFana(@RequestBody KorisceniRekvizit adminSis) {
-//        KorisceniRekvizit kreiraniAdmin = korisceniRekvizitService.save(adminSis);
-//        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.CREATED);
-//    }
+    @RequestMapping(
+            value = "/kreirajKorisceniRekvizit",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<KorisceniRekvizit> kreirajKorisceniRekvizit(@RequestBody KorisceniRekvizit korisceniRekvizit) {
+        KorisceniRekvizit korisceniRekvizit22 = korisceniRekvizitService.save(korisceniRekvizit);
+        return new ResponseEntity<>(korisceniRekvizit22,HttpStatus.CREATED);
+    }
 //
 //    @RequestMapping(
 //            value = "/promeniKorisceniRekvizit",
