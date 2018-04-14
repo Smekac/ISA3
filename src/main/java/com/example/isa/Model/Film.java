@@ -11,7 +11,6 @@ import java.util.Date;
 @Entity
 @Table(name = "Film")
 public class Film {
-
     // Atributi moraju malim slovima po konvenciji Hibernejta crkliiii !!!!!!!
 
     @Id
