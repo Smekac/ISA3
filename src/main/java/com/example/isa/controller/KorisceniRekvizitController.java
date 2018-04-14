@@ -1,9 +1,11 @@
 package com.example.isa.controller;
 
 import com.example.isa.Model.Bid;
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.service.BidService;
 import com.example.isa.service.KorisceniRekvizitService;
+import com.example.isa.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +31,9 @@ public class KorisceniRekvizitController {
 
     @Autowired
     private BidService bidService;
+
+    @Autowired
+    private KorisnikService korisnikService;
 
     @RequestMapping(
             value = "/sve",
@@ -81,7 +86,7 @@ public class KorisceniRekvizitController {
 //    }
 
     @RequestMapping(
-            value = "/{usedPropId}/accept-bid/{acceptedBidId}",
+            value = "/{usedPropId}/accept-bid/{acceptedBidId}",     // Radiiiiiiii u postmanu !!!!!
             method = RequestMethod.GET)
     public ResponseEntity<Bid> acceptBid(@PathVariable Long usedPropId, @PathVariable Long acceptedBidId){
         KorisceniRekvizit usedProp = korisceniRekvizitService.findOne(usedPropId);
@@ -95,9 +100,11 @@ public class KorisceniRekvizitController {
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<KorisceniRekvizit> createPropUsed(Principal principal, @RequestBody KorisceniRekvizit usedProp) {
-        usedProp = korisceniRekvizitService.createUsedProp(principal.getName(),usedProp);
+            produces = MediaType.APPLICATION_JSON_VALUE)        // Gde je vrednost trenutna korisnika ..........
+    public ResponseEntity<KorisceniRekvizit> createPropUsed(@RequestBody KorisceniRekvizit usedProp) {
+        Korisnik korisnik = korisnikService.findByUsername(usedProp.getRegistrovaniKorisnik().getUsername());
+
+        usedProp = korisceniRekvizitService.createUsedProp(korisnik.getUsername(), usedProp);
         return new ResponseEntity<>(usedProp, HttpStatus.CREATED);
     }
 
