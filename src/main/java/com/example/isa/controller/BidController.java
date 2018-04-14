@@ -2,6 +2,7 @@ package com.example.isa.controller;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.service.BidService;
 import com.example.isa.service.KorisceniRekvizitService;
@@ -11,7 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -106,14 +110,21 @@ public class BidController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Bid> createBid(Principal principal, @RequestBody Bid bid, @PathVariable("id") Long id) {
-        Korisnik registeredUser = korisnikService.findByUsername(principal.getName());
+    public ResponseEntity<Bid> createBid(/*Principal principal,*/ @RequestBody Bid bid, @PathVariable("id") Long id) {
+        Korisnik korisnik = korisnikService.findByUsername(bid.getRegistrovaniKorisnik().getUsername());
+        if(korisnik.getTipKorisnika().equals("REGPOSETILAC")) {
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+         RegPosetilacModel regPosetilac = (RegPosetilacModel) session.getAttribute("korisnik");
+         korisnik = regPosetilac;
+        }
+
         KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
-        Bid old = bidService.findByRegistrovaniKorisnikAndKorisceniRekvizit(registeredUser, korisceniRekvizit);
+        Bid old = bidService.findByRegistrovaniKorisnikAndKorisceniRekvizit(korisnik, korisceniRekvizit);
         if (old != null)
             bid.setId(old.getId());
         bid.setDateCreated(new java.util.Date());
-        bid.setRegistrovaniKorisnik(registeredUser);
+        bid.setRegistrovaniKorisnik(korisnik);
         bid.setKorisceniRekvizit(korisceniRekvizit);
         Bid savedBid = bidService.save(bid);
         return new ResponseEntity<>(savedBid, HttpStatus.CREATED);

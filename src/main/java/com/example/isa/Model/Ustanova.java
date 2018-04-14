@@ -25,8 +25,18 @@ public class Ustanova {
     @Enumerated(EnumType.STRING)
     private TipUstanove type;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "ustanova")        //Vlasnik ustanova mapira iz Novi Rekvizit
-    private Set<NoviRekvizit> rekvizits;
+    @Column
+    private String addres;
+
+    @Column
+    private String description;
+
+    @Column
+    private double rating;
+
+
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "ustanova")        //Vlasnik ustanova mapira iz Novi Rekvizit
+//    private Set<NoviRekvizit> rekvizits;
 
     public Long getId() {
         return id;
@@ -52,12 +62,35 @@ public class Ustanova {
         this.type = type;
     }
 
-    public Set<NoviRekvizit> getRekvizits() {
-        return rekvizits;
+//    public Set<NoviRekvizit> getRekvizits() {
+//        return rekvizits;
+//    }
+//
+//    public void setRekvizits(Set<NoviRekvizit> rekvizits) {
+//        this.rekvizits = rekvizits;
+//    }
+
+    public String getAddres() {
+        return addres;
     }
 
-    public void setRekvizits(Set<NoviRekvizit> rekvizits) {
-        this.rekvizits = rekvizits;
+    public void setAddres(String addres) {
+        this.addres = addres;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 }

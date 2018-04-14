@@ -57,7 +57,11 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
 
     @Override
     public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {
-        return null;
+        usedProp.setStatus(TipKoriscenogRekvizita.NACEKANJU);
+        usedProp.setRegistrovaniKorisnik(korisnikService.findByUsername(username));
+        usedProp.setDatumKreiranja(new java.util.Date());
+        usedProp.setBids( new ArrayList<Bid>());
+        return save(usedProp);
     }
 
 //    @Override
