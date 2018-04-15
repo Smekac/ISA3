@@ -1,8 +1,12 @@
 package com.example.isa.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Smekac on 4/14/2018.
@@ -10,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Film")
-public class Film {
+public class Projekcija {
     // Atributi moraju malim slovima po konvenciji Hibernejta crkliiii !!!!!!!
 
     @Id
@@ -52,7 +56,97 @@ public class Film {
     @Column
     private double price;
 
-    public Film(){}
+    @Column
+    private int trajanje;
+
+    @Column
+    private Date pocetak;
+
+
+    @ManyToOne
+    @JoinColumn(name = "sala")
+    @JsonIgnore
+    private Sala sala;
+
+    @ManyToMany
+    @JoinTable(name="projekcija_glumci", joinColumns=@JoinColumn(name="projekcija_id"),
+            inverseJoinColumns=@JoinColumn(name="glumac_id"))
+    @JsonIgnore
+    private List<Glumac> glumci;
+
+    public  Projekcija(){
+    super();
+    glumci = new ArrayList<Glumac>();
+}
+    public Projekcija(String name, String actors, Ustanova ustanova, String genre,
+                      String director, Date date, String duration, String image_url,
+                      double average_score, String description, double price, int trajanje,
+                      Date pocetak, Sala sala, List<Glumac> glumci) {
+        this.name = name;
+        this.actors = actors;
+        this.ustanova = ustanova;
+        this.genre = genre;
+        this.director = director;
+        this.date = date;
+        this.duration = duration;
+        this.image_url = image_url;
+        this.average_score = average_score;
+        this.description = description;
+        this.price = price;
+        this.trajanje = trajanje;
+        this.pocetak = pocetak;
+        this.sala = sala;
+        this.glumci = glumci;
+    }
+
+    public Date getPocetak() {
+        return pocetak;
+    }
+
+    public void setPocetak(Date pocetak) {
+        this.pocetak = pocetak;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public double getAverage_score() {
+        return average_score;
+    }
+
+    public void setAverage_score(double average_score) {
+        this.average_score = average_score;
+    }
+
+    public int getTrajanje() {
+        return trajanje;
+    }
+
+    public void setTrajanje(int trajanje) {
+        this.trajanje = trajanje;
+    }
+
+
+    public List<Glumac> getGlumci() {
+        return glumci;
+    }
+
+    public void setGlumci(List<Glumac> glumci) {
+        this.glumci = glumci;
+    }
 
     public Long getId() {
         return id;

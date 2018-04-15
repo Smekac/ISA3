@@ -3,6 +3,8 @@ package com.example.isa.Model;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,8 +14,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Ustanova")
 public class Ustanova {
-
-    public Ustanova(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,8 @@ public class Ustanova {
     @Column
     private double rating;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova")
+    private List<Sala> sale;
 
 //    @OneToMany(fetch = FetchType.LAZY,mappedBy = "ustanova")        //Vlasnik ustanova mapira iz Novi Rekvizit
 //    private Set<NoviRekvizit> rekvizits;
@@ -70,6 +72,20 @@ public class Ustanova {
 //        this.rekvizits = rekvizits;
 //    }
 
+    public Ustanova(){
+        super();
+        sale =new  ArrayList<Sala>();
+    }
+
+    public Ustanova(String name, TipUstanove type, String addres, String description, double rating, List<Sala> sale) {
+        this.name = name;
+        this.type = type;
+        this.addres = addres;
+        this.description = description;
+        this.rating = rating;
+        this.sale = sale;
+    }
+
     public String getAddres() {
         return addres;
     }
@@ -92,5 +108,13 @@ public class Ustanova {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public List<Sala> getSale() {
+        return sale;
+    }
+
+    public void setSale(List<Sala> sale) {
+        this.sale = sale;
     }
 }
