@@ -28,19 +28,20 @@ public class KorisnikController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody Credentials credentials){
+    public ResponseEntity<Korisnik> login(@RequestBody Credentials credentials){
 
         Korisnik korisnik = korisnikService.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword());
 
         if(korisnik == null)
-            return new ResponseEntity<String> ("Neispravna email adresa ili lozinka", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Korisnik> (korisnik, HttpStatus.UNAUTHORIZED);
 
        if(korisnik.getTipKorisnika().equals("REGPOSETILAC"))
        {
            RegPosetilacModel regPos = (RegPosetilacModel) korisnik;
            if(!regPos.isAccepted())
            {
-               return new ResponseEntity<String>("Potvrdite email adresu", HttpStatus.BAD_REQUEST);
+               korisnik =  null;
+               return new ResponseEntity<Korisnik>(korisnik,HttpStatus.UNAUTHORIZED);
            }
        }
 
@@ -48,7 +49,7 @@ public class KorisnikController {
         HttpSession session= attr.getRequest().getSession(true);
         session.setAttribute("korisnik", korisnik);
 
-        return  new ResponseEntity<String>( "Logovanje je uspjesno", HttpStatus.OK);
+        return  new ResponseEntity<Korisnik>( korisnik, HttpStatus.OK);
 
     }
 
