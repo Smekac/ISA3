@@ -148,9 +148,7 @@ public class BidController {
 
     @RequestMapping(
             value = "/{id}",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE)
     public ResponseEntity<Bid> izbrisiPonudu(@PathVariable("id") Long id) {
         bidService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

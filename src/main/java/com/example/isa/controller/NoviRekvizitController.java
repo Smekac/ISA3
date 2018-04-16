@@ -127,9 +127,7 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
 
     @RequestMapping(
             value = "/{id}",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE)
     public ResponseEntity<NoviRekvizit> deletePropNew(@PathVariable("id") Long id) {
         noviRekvizitService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
