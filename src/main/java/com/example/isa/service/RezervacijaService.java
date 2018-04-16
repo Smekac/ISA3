@@ -1,4 +1,7 @@
 package com.example.isa.service;
 
-public class RezervacijaService {
+import com.example.isa.Model.Rezervacija;
+
+public interface RezervacijaService {
+    Rezervacija kreirajRezervaciju(Rezervacija rezervacija);
 }

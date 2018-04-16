@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Film")
+@Table(name = "Projekcija")
 public class Projekcija {
     // Atributi moraju malim slovima po konvenciji Hibernejta crkliiii !!!!!!!
 
@@ -25,13 +25,6 @@ public class Projekcija {
     private String name;
 
     @Column
-    private String actors;
-
-    @JoinColumn(name="ustanova_id")
-    @ManyToOne(optional = false)
-    private Ustanova ustanova;
-
-    @Column
     private String genre;
 
     @Column
@@ -40,9 +33,6 @@ public class Projekcija {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
-
-    @Column
-    private String duration;
 
     @Column(nullable = false)
     private String image_url;
@@ -58,9 +48,6 @@ public class Projekcija {
 
     @Column
     private int trajanje;
-
-    @Column
-    private Date pocetak;
 
 
     @ManyToOne
@@ -78,34 +65,6 @@ public class Projekcija {
     super();
     glumci = new ArrayList<Glumac>();
 }
-    public Projekcija(String name, String actors, Ustanova ustanova, String genre,
-                      String director, Date date, String duration, String image_url,
-                      double average_score, String description, double price, int trajanje,
-                      Date pocetak, Sala sala, List<Glumac> glumci) {
-        this.name = name;
-        this.actors = actors;
-        this.ustanova = ustanova;
-        this.genre = genre;
-        this.director = director;
-        this.date = date;
-        this.duration = duration;
-        this.image_url = image_url;
-        this.average_score = average_score;
-        this.description = description;
-        this.price = price;
-        this.trajanje = trajanje;
-        this.pocetak = pocetak;
-        this.sala = sala;
-        this.glumci = glumci;
-    }
-
-    public Date getPocetak() {
-        return pocetak;
-    }
-
-    public void setPocetak(Date pocetak) {
-        this.pocetak = pocetak;
-    }
 
     public Sala getSala() {
         return sala;
@@ -164,22 +123,6 @@ public class Projekcija {
         this.name = name;
     }
 
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    public Ustanova getUstanova() {
-        return ustanova;
-    }
-
-    public void setUstanova(Ustanova ustanova) {
-        this.ustanova = ustanova;
-    }
-
     public String getGenre() {
         return genre;
     }
@@ -202,14 +145,6 @@ public class Projekcija {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
     }
 
     public String getImageUrl() {
@@ -244,4 +179,17 @@ public class Projekcija {
         this.price = price;
     }
 
+    public Projekcija(String name, String genre, String director, Date date, String image_url, double average_score, String description, double price, int trajanje, Sala sala, List<Glumac> glumci) {
+        this.name = name;
+        this.genre = genre;
+        this.director = director;
+        this.date = date;
+        this.image_url = image_url;
+        this.average_score = average_score;
+        this.description = description;
+        this.price = price;
+        this.trajanje = trajanje;
+        this.sala = sala;
+        this.glumci = glumci;
+    }
 }
