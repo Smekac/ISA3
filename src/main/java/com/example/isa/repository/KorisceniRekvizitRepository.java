@@ -23,5 +23,6 @@ public interface KorisceniRekvizitRepository extends JpaRepository<KorisceniRekv
 
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita korisceniRekvizit);
                             // po imenu 'skrpljen upit xD'
+    List<KorisceniRekvizit> findByRegistrovaniKorisnik_Username(String username);
 }
 

@@ -56,11 +56,22 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
     }
 
     @Override
+    public List<KorisceniRekvizit> findByRegistrovaniKorisnik_Username(String username) {
+        return korisceniRekvizitRepository.findByRegistrovaniKorisnik_Username(username);
+    }
+
+//    @Override
+//    public List<KorisceniRekvizit> findByRegistrovaniKorisnik() {
+//        return korisceniRekvizitRepository.findByRegistrovaniKorisnik();
+//    }
+
+    @Override
     public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {
         usedProp.setStatus(TipKoriscenogRekvizita.NACEKANJU);
-//        usedProp.setRegistrovaniKorisnik(korisnikService.findByUsername(username));
-//        usedProp.setDatumKreiranja(new java.util.Date());
-//        usedProp.setBids( new ArrayList<Bid>());
+
+        // usedProp.setRegistrovaniKorisnik(korisnikService.findByUsername(username));
+        usedProp.setDatumKreiranja(new java.util.Date());
+        usedProp.setBids( new ArrayList<Bid>());
         return save(usedProp);
     }
 

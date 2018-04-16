@@ -22,6 +22,8 @@ public interface KorisceniRekvizitService {
 
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita tipKoriscenogRekvizita);
 
+    List<KorisceniRekvizit> findByRegistrovaniKorisnik_Username(String username);
+
     KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp);
 
 }

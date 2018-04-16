@@ -47,9 +47,9 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @ManyToOne(optional = true)
     private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
-//    @JsonIgnore
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
-//    private List<Bid> bids;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
+    private List<Bid> bids;
 
     public KorisceniRekvizit(){
 
@@ -110,11 +110,11 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
 //        this.registrovaniKorisnik = registrovaniKorisnik;
 //    }
 
-//    public List<Bid> getBids() {
-//        return bids;
-//    }
-//
-//    public void setBids(List<Bid> bids) {
-//        this.bids = bids;
-//    }
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
 }

@@ -56,7 +56,7 @@ public class KorisceniRekvizitController {
         return new ResponseEntity<>(usedProps, HttpStatus.OK);
     }
 
-    // Samo oni koji su potvrdjeni
+    // Samo za one koji ma je status PRIHVACEN i kojima je polje activeUntil > od danasnjeg datumaa !!
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,15 +76,20 @@ public class KorisceniRekvizitController {
 
         // treba napraviti korisnickee rolee ......
 
-//    //used props by user
-//    @RequestMapping(
-//            value = "/user",
-//            method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<UsedProp>> getUsedPropsByUser(Principal principal){
-//        List<UsedProp> usedProps = usedPropService.findByUsername(principal.getName());
-//        return new ResponseEntity<>(usedProps,HttpStatus.OK);
-//    }
+    //used props by user
+    @RequestMapping(
+            value = "/user/{username}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisceniRekvizit>> getUsedPropsByUser(@PathVariable("username") String username){
+        // Poslacu objekat sa korisnikom koji je trenutno na sesiji !!!!!
+
+       // List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByRegistrovaniKorisnik(principal.getName());
+        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByRegistrovaniKorisnik_Username(username);
+
+
+        return new ResponseEntity<>(usedProps,HttpStatus.OK);
+    }
 
     @RequestMapping(
             value = "/{usedPropId}/accept-bid/{acceptedBidId}",     // Radiiiiiiii u postmanu !!!!!
