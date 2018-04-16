@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -80,7 +83,13 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
             method = RequestMethod.GET)
     public ResponseEntity<NoviRekvizit> reservationNewProp(@PathVariable("id") Long id){
         NoviRekvizit newProp = noviRekvizitService.findOne(id);
-        newProp.setRegistrovaniKorisnik(regPosetilacService.findOne(5L));
+
+        //
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
+
+        newProp.setRegistrovaniKorisnik(ref);
         noviRekvizitService.save(newProp);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
