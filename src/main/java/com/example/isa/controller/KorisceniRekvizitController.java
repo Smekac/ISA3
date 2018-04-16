@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -143,6 +144,9 @@ public class KorisceniRekvizitController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<KorisceniRekvizit> kreirajKorisceniRekvizit(@RequestBody KorisceniRekvizit korisceniRekvizit) {
+        korisceniRekvizit.setDatumKreiranja(new Date());
+        // korisceniRekvizit.setAcceptedBid();
+        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.NACEKANJU); // po difoltuu
         KorisceniRekvizit korisceniRekvizit22 = korisceniRekvizitService.save(korisceniRekvizit);
         return new ResponseEntity<>(korisceniRekvizit22,HttpStatus.CREATED);
     }
