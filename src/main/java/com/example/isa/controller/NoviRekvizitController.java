@@ -76,7 +76,7 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
 
 
     @RequestMapping(
-            value = "/reservation/{id}",
+            value = "/reserve/{id}",
             method = RequestMethod.GET)
     public ResponseEntity<NoviRekvizit> reservationNewProp(@PathVariable("id") Long id){
         NoviRekvizit newProp = noviRekvizitService.findOne(id);
@@ -113,6 +113,7 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
         old.setCena(noviRekvizit.getCena());
         NoviRekvizit updatedNewProp = noviRekvizitService.save(old);
         return new ResponseEntity<>(updatedNewProp, HttpStatus.CREATED);
+
     }
 
     @RequestMapping(

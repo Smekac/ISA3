@@ -146,6 +146,17 @@ public class KorisceniRekvizitController {
         KorisceniRekvizit korisceniRekvizit22 = korisceniRekvizitService.save(korisceniRekvizit);
         return new ResponseEntity<>(korisceniRekvizit22,HttpStatus.CREATED);
     }
+
+//    //all exept finished
+//    @RequestMapping(
+//            value = "/not-finished",
+//            method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<KorisceniRekvizit>> getExceptFinished(){
+//        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(new java.util.Date(), UsedPropStatus.DECLINED);
+//        return new ResponseEntity<>(usedProps, HttpStatus.OK);
+//    }
+
 //
 //    @RequestMapping(
 //            value = "/promeniKorisceniRekvizit",
