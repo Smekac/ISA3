@@ -12,6 +12,7 @@ public class Segment implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TipSegmenta tipSegmenta;
 
 
@@ -59,8 +60,6 @@ public class Segment implements Serializable {
     public void setTipSegmenta(TipSegmenta tipSegmenta) {
         this.tipSegmenta = tipSegmenta;
     }
-
-
 
     public List<Sjediste> getSjedista() {
         return sjedista;

@@ -15,12 +15,14 @@ public class Sjediste implements Serializable {
     @JoinColumn(name = "segment")
     private Segment segment;
 
+    @Column
     private  int red;
     //pozicija u redu
+    @Column
     private  int pozicija;
 
 
-
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean rezervisano;
 
     Sjediste(){

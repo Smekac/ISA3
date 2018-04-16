@@ -1,5 +1,6 @@
 package com.example.isa.Model.Korisnici;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -26,6 +27,7 @@ public abstract class Korisnik implements Serializable{
     @Column(nullable = false,unique = true)
     private String username;
 
+    @JsonIgnore
     @NotBlank
     @Column(nullable = false)
     private String password;
