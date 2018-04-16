@@ -22,4 +22,6 @@ public interface RegPosetilacService {
     void confirmEmailAdress(Long id);
 
     RegPosetilacModel findByUsername(String username);
+
+
 }

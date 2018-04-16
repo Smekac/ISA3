@@ -2,6 +2,7 @@ package com.example.isa.service;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface BidService {
 
     void delete(Long id);
 
-    Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(Korisnik korisnik, KorisceniRekvizit korisceniRekvizit);
+    Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(RegPosetilacModel korisnik, KorisceniRekvizit korisceniRekvizit);
 
     List<Bid> findByKorisceniRekvizit(KorisceniRekvizit korisceniRekvizit);
 }

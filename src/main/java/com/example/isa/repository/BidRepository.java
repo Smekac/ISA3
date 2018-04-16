@@ -3,6 +3,7 @@ package com.example.isa.repository;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -20,7 +21,7 @@ public interface BidRepository extends JpaRepository<Bid,Long> {
 
     void delete(Long id);
 
-    Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(Korisnik korisnik,KorisceniRekvizit korisceniRekvizit);
+    Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(RegPosetilacModel regPosetilacModel, KorisceniRekvizit korisceniRekvizit);
 
     List<Bid> findByKorisceniRekvizit(KorisceniRekvizit korisceniRekvizit);
 

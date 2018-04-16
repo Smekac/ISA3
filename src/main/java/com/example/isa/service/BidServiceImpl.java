@@ -3,6 +3,7 @@ package com.example.isa.service;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(Korisnik korisnik, KorisceniRekvizit korisceniRekvizit) {
-        return bidRepository.findByRegistrovaniKorisnikAndKorisceniRekvizit(korisnik,korisceniRekvizit);
+    public Bid findByRegistrovaniKorisnikAndKorisceniRekvizit(RegPosetilacModel regPosetilacModel, KorisceniRekvizit korisceniRekvizit) {
+        return bidRepository.findByRegistrovaniKorisnikAndKorisceniRekvizit(regPosetilacModel,korisceniRekvizit);
     }
 
     @Override

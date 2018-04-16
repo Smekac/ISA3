@@ -29,23 +29,23 @@ public class Bid implements Serializable {
     @Column(nullable = false)
     private boolean accepted;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)   //Proveriti !
     private Date dateCreated;
 
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username" )
     @JsonIdentityReference(alwaysAsId = true)                   //  Vezano za referencijalni integritet .....
     @JoinColumn(name="registrovani_korisnik_id")
-    @ManyToOne(optional = false)
-    private Korisnik registrovaniKorisnik;
+    @ManyToOne(optional = true)
+    private RegPosetilacModel registrovaniKorisnik;
 
 
-    // @JsonIgnore Ne vraca citav taj objekat ....
+  //  @JsonIgnore
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name="korisceni_rekvizit_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private KorisceniRekvizit korisceniRekvizit;
 
 
@@ -87,11 +87,12 @@ public class Bid implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public Korisnik getRegistrovaniKorisnik() {
+
+    public RegPosetilacModel getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(Korisnik registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(RegPosetilacModel registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 

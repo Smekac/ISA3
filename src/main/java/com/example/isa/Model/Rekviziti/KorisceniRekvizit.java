@@ -45,14 +45,21 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name="registrovani_korisnik_id") // IZ sql.importa kako se kolona zove koju hocu da mi vracaa, ......
     @ManyToOne(optional = true)
-    private Korisnik registrovaniKorisnik;  // RegPosetilacModel
+    private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
-    private List<Bid> bids;
+//    @JsonIgnore
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
+//    private List<Bid> bids;
 
-    public KorisceniRekvizit(){}
+    public KorisceniRekvizit(){
 
+    }
+
+    public KorisceniRekvizit(String naslov, String opis, Date datumKreiranja, AdminFanModel adminFan, RegPosetilacModel registrovaniKorisnik) {
+        super(naslov, opis, datumKreiranja);
+        this.adminFan = adminFan;
+        this.registrovaniKorisnik = registrovaniKorisnik;
+    }
 
     public TipKoriscenogRekvizita getStatus() {
         return status;
@@ -87,19 +94,27 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
         this.adminFan = adminFan;
     }
 
-    public Korisnik getRegistrovaniKorisnik() {
+    public RegPosetilacModel getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik( Korisnik registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(RegPosetilacModel registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
-    public List<Bid> getBids() {
-        return bids;
-    }
+    //    public Korisnik getRegistrovaniKorisnik() {
+//        return registrovaniKorisnik;
+//    }
+//
+//    public void setRegistrovaniKorisnik( Korisnik registrovaniKorisnik) {
+//        this.registrovaniKorisnik = registrovaniKorisnik;
+//    }
 
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
-    }
+//    public List<Bid> getBids() {
+//        return bids;
+//    }
+//
+//    public void setBids(List<Bid> bids) {
+//        this.bids = bids;
+//    }
 }

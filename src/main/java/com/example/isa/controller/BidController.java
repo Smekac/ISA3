@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,7 +82,7 @@ public class BidController {
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Bid>> getBids() {
+    public ResponseEntity<List<Bid>> getBid() {
         List<Bid> bids = bidService.findAll();
         return new ResponseEntity<>(bids, HttpStatus.OK);
     }
@@ -90,16 +91,16 @@ public class BidController {
             value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Bid> getBid(@PathVariable("id") Long id) {
+    public ResponseEntity<Bid> vratiPonudu(@PathVariable("id") Long id) {
         Bid bid = bidService.findOne(id);
         return new ResponseEntity<>(bid, HttpStatus.OK);
     }
 
-    @RequestMapping(
+    @RequestMapping(                        // Radi !!!!!
             value = "/used-prop/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Bid>> getBidByUsedProp(@PathVariable("id") Long id) {
+    public ResponseEntity<List<Bid>> vratiPonudeZadatiRekvizit(@PathVariable("id") Long id) {
         KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
         List<Bid> bids = bidService.findByKorisceniRekvizit(korisceniRekvizit);
         return new ResponseEntity<>(bids, HttpStatus.OK);
@@ -110,22 +111,28 @@ public class BidController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Bid> createBid(/*Principal principal,*/ @RequestBody Bid bid, @PathVariable("id") Long id) {
-        Korisnik korisnik = korisnikService.findByUsername(bid.getRegistrovaniKorisnik().getUsername());
-        if(korisnik.getTipKorisnika().equals("REGPOSETILAC")) {
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attr.getRequest().getSession(true);
-         RegPosetilacModel regPosetilac = (RegPosetilacModel) session.getAttribute("korisnik");
-         korisnik = regPosetilac;
-        }
-
+    public ResponseEntity<Bid> kreirajPonudu(@RequestBody Bid bid, @PathVariable("id") Long id) {
+//        Korisnik korisnik = korisnikService.findByUsername(bid.getRegistrovaniKorisnik().getUsername());
+//        System.out.print(korisnik + " ________ " +   bid.getRegistrovaniKorisnik() );
+//        RegPosetilacModel regPosetilac = new RegPosetilacModel();
+//        if(korisnik.getTipKorisnika().equals("REGPOSETILAC")) {
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession(true);
+//          regPosetilac = (RegPosetilacModel) session.getAttribute("korisnik");
+//         korisnik = regPosetilac;
+//         System.out.print(korisnik + " ________ " +  regPosetilac );
+//        }
+//        System.out.print(korisnik + " ________ " +   bid.getRegistrovaniKorisnik() );
+//
+//        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
+//        Bid old = bidService.findByRegistrovaniKorisnikAndKorisceniRekvizit(regPosetilac , korisceniRekvizit);
+//        if (old != null)
+//            bid.setId(old.getId());
+//        bid.setDateCreated(new java.util.Date());
+//      //  bid.setRegistrovaniKorisnik(korisnik);
         KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
-        Bid old = bidService.findByRegistrovaniKorisnikAndKorisceniRekvizit(korisnik, korisceniRekvizit);
-        if (old != null)
-            bid.setId(old.getId());
-        bid.setDateCreated(new java.util.Date());
-        bid.setRegistrovaniKorisnik(korisnik);
         bid.setKorisceniRekvizit(korisceniRekvizit);
+        bid.setDateCreated(new Date());
         Bid savedBid = bidService.save(bid);
         return new ResponseEntity<>(savedBid, HttpStatus.CREATED);
     }
@@ -134,7 +141,7 @@ public class BidController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Bid> updateBid(@RequestBody Bid bid) {
+    public ResponseEntity<Bid> osveziPonudu(@RequestBody Bid bid) {
         Bid updatedBid = bidService.save(bid);
         return new ResponseEntity<>(updatedBid, HttpStatus.OK);
     }
@@ -144,7 +151,7 @@ public class BidController {
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Bid> deleteBid(@PathVariable("id") Long id) {
+    public ResponseEntity<Bid> izbrisiPonudu(@PathVariable("id") Long id) {
         bidService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

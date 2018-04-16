@@ -42,7 +42,9 @@ public class NoviRekvizit extends Rekvizit implements Serializable{
     @ManyToOne(optional = false)
     private Ustanova ustanova;
 
-    public NoviRekvizit(){}
+    public NoviRekvizit(){
+
+    }
 
     public NoviRekvizit(float cena, AdminFanModel adminFan, RegPosetilacModel registrovaniKorisnik, Ustanova ustanova) {
         this.cena = cena;
