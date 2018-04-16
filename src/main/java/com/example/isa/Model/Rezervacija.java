@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "rezervacija")
 public class Rezervacija implements Serializable {
 
     @Id
@@ -22,9 +23,10 @@ public class Rezervacija implements Serializable {
     private List<Sjediste> sjedista;
 
 
+    @ManyToOne
     private RegPosetilacModel posetilac;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<RegPosetilacModel> pozvani;
 
 
