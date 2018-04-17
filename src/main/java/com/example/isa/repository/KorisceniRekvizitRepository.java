@@ -1,5 +1,6 @@
 package com.example.isa.repository;
 
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,5 +29,8 @@ public interface KorisceniRekvizitRepository extends JpaRepository<KorisceniRekv
 
    // findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
+    List<KorisceniRekvizit> findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(String username, Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
 }
 

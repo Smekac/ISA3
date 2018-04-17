@@ -2,6 +2,7 @@ package com.example.isa.controller;
 
 import com.example.isa.Model.Bid;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.service.BidService;
 import com.example.isa.service.KorisceniRekvizitService;
@@ -13,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -162,6 +166,21 @@ public class KorisceniRekvizitController {
 //
 //    }
 //
+
+    @RequestMapping(
+            value = "/nijeZavrsenaZaKorisnika/{username}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisceniRekvizit>> korisnikKojiJeObjavioADajeAktivna(@PathVariable("username") String username){
+        // Uzeti korisnika sa sesije !!!!
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
+                          // ref.getUsername() == Nul , Zasto iako sam se ulogovao na sesiju !!!!!
+
+        List<KorisceniRekvizit> samoOniZadovoljeni = korisceniRekvizitService.findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(username,new java.util.Date(), TipKoriscenogRekvizita.ODBIJEN);
+        return new ResponseEntity<>(samoOniZadovoljeni, HttpStatus.OK);
+    }
 
 
     //all exept finished

@@ -1,6 +1,7 @@
 package com.example.isa.service;
 
 import com.example.isa.Model.Bid;
+import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import com.example.isa.repository.KorisceniRekvizitRepository;
@@ -79,6 +80,16 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
     public List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
         return korisceniRekvizitRepository.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(data,tipKoriscenogRekvizita);
     }
+
+    @Override
+    public List<KorisceniRekvizit> findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(String username, Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
+        return korisceniRekvizitRepository.findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(username,data,tipKoriscenogRekvizita);
+    }
+
+//    @Override
+//    public List<KorisceniRekvizit> findByRegistrovaniKorisnikAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(RegPosetilacModel regPosetilacModel, Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
+//        return korisceniRekvizitRepository.findByRegistrovaniKorisnikAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(regPosetilacModel,data,tipKoriscenogRekvizita);
+//    }
 
 //    @Override
 //    public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {

@@ -89,8 +89,6 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
         //
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session= attr.getRequest().getSession(true);
-
-
         RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
 
 
