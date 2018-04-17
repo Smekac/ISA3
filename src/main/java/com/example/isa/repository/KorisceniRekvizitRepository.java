@@ -30,7 +30,12 @@ public interface KorisceniRekvizitRepository extends JpaRepository<KorisceniRekv
    // findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
 
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
     List<KorisceniRekvizit> findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(String username, Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
+    // List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
 
 }
 

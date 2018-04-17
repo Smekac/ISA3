@@ -65,7 +65,9 @@ public class KorisceniRekvizitController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<KorisceniRekvizit>> getUsedProps() {
-        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndStatusEquals(new java.util.Date(), TipKoriscenogRekvizita.PRIHVACEN);
+       // List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndStatusEquals(new java.util.Date(), TipKoriscenogRekvizita.PRIHVACEN);
+        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(new java.util.Date(), TipKoriscenogRekvizita.PRIHVACEN);
+        //findByActiveUntilGreaterThanAndAcceptedBidNullAndStatus
         return new ResponseEntity<>(usedProps, HttpStatus.OK);
     }
 

@@ -86,6 +86,11 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
         return korisceniRekvizitRepository.findByRegistrovaniKorisnik_UsernameAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(username,data,tipKoriscenogRekvizita);
     }
 
+    @Override
+    public List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
+        return korisceniRekvizitRepository.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(data,tipKoriscenogRekvizita);
+    }
+
 //    @Override
 //    public List<KorisceniRekvizit> findByRegistrovaniKorisnikAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(RegPosetilacModel regPosetilacModel, Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
 //        return korisceniRekvizitRepository.findByRegistrovaniKorisnikAndActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(regPosetilacModel,data,tipKoriscenogRekvizita);
