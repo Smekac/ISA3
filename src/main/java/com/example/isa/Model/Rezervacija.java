@@ -16,14 +16,14 @@ public class Rezervacija implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Projekcija projekcija;
 
     @OneToMany(fetch = FetchType.LAZY )
     private List<Sjediste> sjedista;
 
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private RegPosetilacModel posetilac;
 
     @ManyToMany(fetch = FetchType.LAZY)

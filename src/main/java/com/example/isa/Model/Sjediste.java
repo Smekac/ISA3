@@ -15,10 +15,10 @@ public class Sjediste implements Serializable {
     @JoinColumn(name = "segment")
     private Segment segment;
 
-    @Column
+    @Column(nullable = false)
     private  int red;
     //pozicija u redu
-    @Column
+    @Column(nullable = false)
     private  int pozicija;
 
 

@@ -1,3 +1,5 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- Kada se stavi ime import.sql radi !!!!
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Novi Sad', 'adminfan@adminfan', 'Ivan', '0635569989', 'adminfan', 'Perkovic', 'adminfan');
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Zvornik', 'radestojkic@gmail.com', 'Radisa', '064941267', 'rasko', 'Stojkic', 'raskica');
@@ -19,3 +21,14 @@ INSERT INTO korisceni_rekvizit (id, datum_kreiranja, image, naslov,opis, active_
 INSERT INTO bid (accepted, date_created, price, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, '2018-01-29 03:25:24', 250, 1, 5);
 INSERT INTO bid (accepted, date_created, price, korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, '2018-02-01 17:25:24', 260, 1, 6);
 INSERT INTO bid (accepted, price, date_created,korisceni_rekvizit_id, registrovani_korisnik_id) VALUES (0, 456, '2018-03-30 22:09:05', 2, 6);
+
+
+INSERT INTO sala(id,naziv,ustanova) VALUES (1,'SALA 1', 1);
+
+INSERT INTO projekcija(id, average_score,description,director, genre,image_url,name, trajanje, sala) VALUES(1,4, 'Jako lijepa prica', NULL ,NULL ,NULL ,'Carobnjak iz oza',125,1);
+
+INSERT  INTO datumi_projekcije( id, datum, termin, cijena) VALUES (1, '2018-01-29', '03:25:24', 350);
+INSERT  INTO datumi_projekcije( id, datum, termin, cijena) VALUES (2, '2018-01-29','05:50:24', 400);
+
+INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,1);
+INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,2);

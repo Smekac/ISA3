@@ -15,7 +15,7 @@ public class Sala implements Serializable {
     private String naziv;
 
     @ManyToOne
-    @JoinColumn(name = "ustanova")
+    @JoinColumn(name = "ustanova", nullable = false)
     private Ustanova ustanova;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sala")

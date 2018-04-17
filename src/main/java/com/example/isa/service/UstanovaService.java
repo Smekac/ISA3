@@ -1,5 +1,6 @@
 package com.example.isa.service;
 
+import com.example.isa.Model.Projekcija;
 import com.example.isa.Model.Ustanova;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface UstanovaService {
     Ustanova save(Ustanova ustanova);
 
     void delete(Long id);
+
+    List<Projekcija> findRepertoar(Long idUstanove);
 }

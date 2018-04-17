@@ -16,7 +16,7 @@ public class Glumac implements Serializable {
     @Column
     private String ime;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "glumci")
     @JsonIgnore
     private List<Projekcija> projekcije;
 

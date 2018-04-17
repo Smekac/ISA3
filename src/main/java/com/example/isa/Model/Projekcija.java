@@ -3,9 +3,7 @@ package com.example.isa.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "Projekcija")
 public class Projekcija {
-    // Atributi moraju malim slovima po konvenciji Hibernejta crkliiii !!!!!!!
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,23 +27,16 @@ public class Projekcija {
     @Column
     private String director;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
-    @Column(nullable = false)
+    @Column
     private String image_url;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private double average_score;
 
     @Column
     private String description;
 
-    @Column
-    private double price;
-
-    @Column
+    @Column(nullable = false)
     private int trajanje;
 
 
@@ -61,9 +51,16 @@ public class Projekcija {
     @JsonIgnore
     private List<Glumac> glumci;
 
+    @ManyToMany
+    @JoinTable(name= "projekcije_datumiprojekcije", joinColumns= @JoinColumn(name="projekcija_id"),
+            inverseJoinColumns = @JoinColumn(name ="datumprojekcije_id" ))
+    @JsonIgnore
+    private List<DatumiProjekcije> datumiProjekcije;
+
     public  Projekcija(){
     super();
     glumci = new ArrayList<Glumac>();
+    datumiProjekcije = new ArrayList<>();
 }
 
     public Sala getSala() {
@@ -139,14 +136,6 @@ public class Projekcija {
         this.director = director;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getImageUrl() {
         return image_url;
     }
@@ -171,25 +160,14 @@ public class Projekcija {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+
+    public List<DatumiProjekcije> getDatumiProjekcije() {
+        return datumiProjekcije;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setDatumiProjekcije(List<DatumiProjekcije> datumiProjekcije) {
+        this.datumiProjekcije = datumiProjekcije;
     }
 
-    public Projekcija(String name, String genre, String director, Date date, String image_url, double average_score, String description, double price, int trajanje, Sala sala, List<Glumac> glumci) {
-        this.name = name;
-        this.genre = genre;
-        this.director = director;
-        this.date = date;
-        this.image_url = image_url;
-        this.average_score = average_score;
-        this.description = description;
-        this.price = price;
-        this.trajanje = trajanje;
-        this.sala = sala;
-        this.glumci = glumci;
-    }
+
 }

@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> {
     Rezervacija save(Rezervacija rezervacija);
+
+    Rezervacija findOne(Long aLong);
 }

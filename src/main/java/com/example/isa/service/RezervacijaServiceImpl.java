@@ -12,8 +12,13 @@ public class RezervacijaServiceImpl implements RezervacijaService{
     RezervacijaRepository rezervacijaRepository;
 
     @Override
-    public Rezervacija kreirajRezervaciju(Rezervacija rezervacija) {
-       Rezervacija saved = rezervacijaRepository.save(rezervacija);
+    public Rezervacija save(Rezervacija rez) {
+       Rezervacija saved = rezervacijaRepository.save(rez);
        return saved;
+    }
+
+    @Override
+    public Rezervacija findOne(Long id) {
+        return  rezervacijaRepository.findOne(id);
     }
 }

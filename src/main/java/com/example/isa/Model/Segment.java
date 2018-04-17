@@ -21,7 +21,7 @@ public class Segment implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "sala")
+    @JoinColumn(name = "sala", nullable = false)
     private Sala sala;
 
     public Sala getSala() {

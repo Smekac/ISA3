@@ -21,7 +21,7 @@ public class RezervacijaController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Rezervacija> kreirajRezeracija(@RequestBody Rezervacija rezervacija){
-       if( rezervacijaService.kreirajRezervaciju(rezervacija) != null)
+       if( rezervacijaService.save(rezervacija) != null)
            return new ResponseEntity<>(HttpStatus.CREATED);
 
        return new  ResponseEntity<>(HttpStatus.BAD_REQUEST);
