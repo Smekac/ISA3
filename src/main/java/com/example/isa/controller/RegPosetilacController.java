@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by Smekac on 2/2/2018.
+ * Modifed: Jovana
  */
 @RestController
 public class RegPosetilacController {

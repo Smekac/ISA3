@@ -32,3 +32,5 @@ INSERT  INTO datumi_projekcije( id, datum, termin, cijena) VALUES (2, '2018-01-2
 
 INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,1);
 INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,2);
+
+INSERT INTO rezervacija (id,posetilac_id, projekcija_id) VALUES (1,1,1);

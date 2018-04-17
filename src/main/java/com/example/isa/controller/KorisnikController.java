@@ -1,12 +1,12 @@
 package com.example.isa.controller;
 
-import com.example.isa.DTO.Credentials;
-import com.example.isa.DTO.KorisnikDTO;
+
 import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.service.KorisnikService;
+import com.example.isa.dto.Credentials;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
