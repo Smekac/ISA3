@@ -48,8 +48,8 @@ public class KorisceniRekvizit extends Rekvizit implements Serializable {
     private RegPosetilacModel registrovaniKorisnik;  // RegPosetilacModel
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit")       //mappedBy = "propUsed"
-    private List<Bid> bids;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "korisceniRekvizit",cascade = CascadeType.REMOVE)       //mappedBy = "propUsed"
+    private List<Bid> bids;                                         //  Dodato nece da se brisee zato sto je u Bid sadrzan kao strani kljucc  !!!!!!!!
 
     public KorisceniRekvizit(){
 

@@ -15,7 +15,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.util.List;
+
+import static java.sql.JDBCType.NULL;
 
 /**
  * Created by Smekac on 2/2/2018.
@@ -82,15 +85,20 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
             value = "/reserve/{id}",
             method = RequestMethod.GET)
     public ResponseEntity<NoviRekvizit> reservationNewProp(@PathVariable("id") Long id){
-        NoviRekvizit newProp = noviRekvizitService.findOne(id);
-
+        NoviRekvizit datiRekvizit = noviRekvizitService.findOne(id);
         //
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session= attr.getRequest().getSession(true);
+
+
         RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
 
-        newProp.setRegistrovaniKorisnik(ref);
-        noviRekvizitService.save(newProp);
+
+
+       if((datiRekvizit.getRegistrovaniKorisnik() == null)){
+            datiRekvizit.setRegistrovaniKorisnik(ref);
+        }
+        noviRekvizitService.save(datiRekvizit);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

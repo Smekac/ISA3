@@ -75,6 +75,11 @@ public class KorisceniRekvizitServiceImpl implements KorisceniRekvizitService {
         return save(usedProp);
     }
 
+    @Override
+    public List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita) {
+        return korisceniRekvizitRepository.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(data,tipKoriscenogRekvizita);
+    }
+
 //    @Override
 //    public KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp) {
 //        usedProp.setStatus(TipKoriscenogRekvizita.NACEKANJU);

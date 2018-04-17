@@ -130,10 +130,22 @@ public class BidController {
 //            bid.setId(old.getId());
 //        bid.setDateCreated(new java.util.Date());
 //      //  bid.setRegistrovaniKorisnik(korisnik);
-        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
-        bid.setKorisceniRekvizit(korisceniRekvizit);
-        bid.setDateCreated(new Date());
-        Bid savedBid = bidService.save(bid);
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        RegPosetilacModel regPosetilac = (RegPosetilacModel) session.getAttribute("korisnik");
+
+        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id); // Akokorisceni rekvizit ima
+
+        Bid old = bidService.findByRegistrovaniKorisnikAndKorisceniRekvizit(regPosetilac, korisceniRekvizit);
+
+        if (old != null) {
+            bid.setId(old.getId());
+        }
+            bid.setKorisceniRekvizit(korisceniRekvizit);
+            bid.setDateCreated(new Date());
+            Bid savedBid = bidService.save(bid);
+
         return new ResponseEntity<>(savedBid, HttpStatus.CREATED);
     }
 

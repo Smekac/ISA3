@@ -19,4 +19,6 @@ public interface NoviRekvizitService {
 
     List<NoviRekvizit> findByRegistrovaniKorisnikIsNull();
 
+   // NoviRekvizit findByRegistrovani
+
 }

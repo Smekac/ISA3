@@ -4,6 +4,7 @@ import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,8 +22,11 @@ public interface KorisceniRekvizitRepository extends JpaRepository<KorisceniRekv
 
     List<KorisceniRekvizit> findByAdminFanIsNotNull();
 
-    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(java.util.Date date, TipKoriscenogRekvizita korisceniRekvizit);
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndStatusEquals(Date date, TipKoriscenogRekvizita korisceniRekvizit);
                             // po imenu 'skrpljen upit xD'
     List<KorisceniRekvizit> findByRegistrovaniKorisnik_Username(String username);
+
+   // findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
 }
 

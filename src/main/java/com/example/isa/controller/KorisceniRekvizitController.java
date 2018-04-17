@@ -106,13 +106,31 @@ public class KorisceniRekvizitController {
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)        // Gde je vrednost trenutna korisnika ..........
+            produces = MediaType.APPLICATION_JSON_VALUE)        // Gde je vrednost trenutna korisnika setovao na frontu..........
     public ResponseEntity<KorisceniRekvizit> createPropUsed(@RequestBody KorisceniRekvizit usedProp) {
         Korisnik korisnik = korisnikService.findByUsername(usedProp.getRegistrovaniKorisnik().getUsername());
 
         usedProp = korisceniRekvizitService.createUsedProp(korisnik.getUsername(), usedProp);
         return new ResponseEntity<>(usedProp, HttpStatus.CREATED);
     }
+
+    // =======================================================
+
+    @RequestMapping(
+            value = "/kreirajKorisceniRekvizit",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<KorisceniRekvizit> kreirajKorisceniRekvizit(@RequestBody KorisceniRekvizit korisceniRekvizit) {
+        korisceniRekvizit.setDatumKreiranja(new Date());
+        // korisceniRekvizit.setAcceptedBid();
+        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.NACEKANJU); // po difoltuu
+        KorisceniRekvizit korisceniRekvizit22 = korisceniRekvizitService.save(korisceniRekvizit);
+        return new ResponseEntity<>(korisceniRekvizit22,HttpStatus.CREATED);
+    }
+
+    // ========================================================
 
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -122,6 +140,8 @@ public class KorisceniRekvizitController {
         KorisceniRekvizit updatedUsedProp = korisceniRekvizitService.save(usedProp);
         return new ResponseEntity<>(updatedUsedProp, HttpStatus.OK);
     }
+
+
 
     @RequestMapping(
             value = "/{id}",
@@ -142,29 +162,17 @@ public class KorisceniRekvizitController {
 //
 //    }
 //
-    @RequestMapping(
-            value = "/kreirajKorisceniRekvizit",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<KorisceniRekvizit> kreirajKorisceniRekvizit(@RequestBody KorisceniRekvizit korisceniRekvizit) {
-        korisceniRekvizit.setDatumKreiranja(new Date());
-        // korisceniRekvizit.setAcceptedBid();
-        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.NACEKANJU); // po difoltuu
-        KorisceniRekvizit korisceniRekvizit22 = korisceniRekvizitService.save(korisceniRekvizit);
-        return new ResponseEntity<>(korisceniRekvizit22,HttpStatus.CREATED);
-    }
 
-//    //all exept finished
-//    @RequestMapping(
-//            value = "/not-finished",
-//            method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<KorisceniRekvizit>> getExceptFinished(){
-//        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(new java.util.Date(), UsedPropStatus.DECLINED);
-//        return new ResponseEntity<>(usedProps, HttpStatus.OK);
-//    }
+
+    //all exept finished
+    @RequestMapping(
+            value = "/not-finished",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisceniRekvizit>> getExceptFinished(){
+        List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(new java.util.Date(), TipKoriscenogRekvizita.ODBIJEN);
+        return new ResponseEntity<>(usedProps, HttpStatus.OK);
+    }
 
 //
 //    @RequestMapping(

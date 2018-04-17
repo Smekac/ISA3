@@ -3,6 +3,7 @@ package com.example.isa.service;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,5 +26,8 @@ public interface KorisceniRekvizitService {
     List<KorisceniRekvizit> findByRegistrovaniKorisnik_Username(String username);
 
     KorisceniRekvizit createUsedProp(String username, KorisceniRekvizit usedProp);
+
+    List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
 
 }
