@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class AdminFanController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
 
-    public ResponseEntity<AdminFanModel> kreirajAdminaFana(@RequestBody AdminFanModel adminSis) {
+    public ResponseEntity<AdminFanModel> kreirajAdminaFana(@Validated @RequestBody AdminFanModel adminSis) {
         AdminFanModel kreiraniAdmin = adminFanService.save(adminSis);
         return new ResponseEntity<>(kreiraniAdmin,HttpStatus.CREATED);
     }
