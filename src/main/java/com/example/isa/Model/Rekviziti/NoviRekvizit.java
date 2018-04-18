@@ -39,7 +39,7 @@ public class NoviRekvizit extends Rekvizit implements Serializable{
     private RegPosetilacModel registrovaniKorisnik;
 
     @JsonIgnore
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)     // Treba false , jer mora postojati u okviru ustanove !!!!
     private Ustanova ustanova;
 
     public NoviRekvizit(){

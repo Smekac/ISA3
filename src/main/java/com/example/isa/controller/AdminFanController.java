@@ -1,14 +1,23 @@
 package com.example.isa.controller;
 
 import com.example.isa.Model.Korisnici.AdminFanModel;
-import com.example.isa.service.AdminFanService;
+import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
+import com.example.isa.Model.Rekviziti.NoviRekvizit;
+import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
+import com.example.isa.Model.Ustanova;
+import com.example.isa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +28,15 @@ public class AdminFanController {
 
     @Autowired
     private AdminFanService adminFanService;
+
+    @Autowired
+    private NoviRekvizitService noviRekvizitService;
+
+    @Autowired
+    private KorisceniRekvizitService korisceniRekvizitService;
+
+    @Autowired
+    private UstanovaService ustanovaService;
 
     @RequestMapping(
             value = "/nadjiAdmineFana",
@@ -47,8 +65,8 @@ public class AdminFanController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
 
-    public ResponseEntity<AdminFanModel> kreirajAdminaFana(@Validated @RequestBody AdminFanModel adminSis) {
-        AdminFanModel kreiraniAdmin = adminFanService.save(adminSis);
+    public ResponseEntity<AdminFanModel> kreirajAdminaFana(@Validated @RequestBody AdminFanModel fanAdmin) {
+        AdminFanModel kreiraniAdmin = adminFanService.save(fanAdmin);
         return new ResponseEntity<>(kreiraniAdmin,HttpStatus.CREATED);
     }
 
@@ -61,7 +79,6 @@ public class AdminFanController {
     public ResponseEntity<AdminFanModel> promeniVrednost(@RequestBody AdminFanModel admin){
         AdminFanModel kreiraniAdmin = adminFanService.save(admin);
         return new ResponseEntity<>(kreiraniAdmin,HttpStatus.OK);
-
     }
 
 
@@ -76,6 +93,121 @@ public class AdminFanController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // Dodaje tematske rekviziteee !!!!!!!!
+    @RequestMapping(
+           value = "/adminfanPravi/{id}",     // /{id}  id ustanove
+           method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )                                                                                             //  @PathVariable("id") Long id
+    public ResponseEntity<NoviRekvizit> dodajTematskiRekvizit(@RequestBody NoviRekvizit noviRekvizit,@PathVariable("id") Long id){
+        // NoviRekvizit noviRekvizit1 = noviRekvizitService.save(noviRekvizit);
 
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik admin = (Korisnik) session.getAttribute("korisnik");
+    //    AdminFanModel datiAdmin = adminFanService.findOne(id);
+   //     RegPosetilacModel registrovani = regPosetilacService.findOne(id);
+        Ustanova ustanova = ustanovaService.findOne(id);
+
+        noviRekvizit.setUstanova(ustanova);
+        noviRekvizit.setAdminFan((AdminFanModel) admin);
+
+        noviRekvizit.setDatumKreiranja(new Date());
+
+        NoviRekvizit noviRekvizit1 = noviRekvizitService.save(noviRekvizit);
+
+        return new ResponseEntity<NoviRekvizit>(noviRekvizit1,HttpStatus.CREATED);
+    }
+
+    @RequestMapping(
+            value = "/adminfanPravi/{id}",     // /{id}  id ustanove
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )                                                                                             //  @PathVariable("id") Long id
+    public ResponseEntity<NoviRekvizit> promeniTematskiRekvizit(@RequestBody NoviRekvizit noviRekvizit,@PathVariable("id") Long id){
+        // NoviRekvizit noviRekvizit1 = noviRekvizitService.save(noviRekvizit);
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik admin = (Korisnik) session.getAttribute("korisnik");
+        //    AdminFanModel datiAdmin = adminFanService.findOne(id);
+        //     RegPosetilacModel registrovani = regPosetilacService.findOne(id);
+        Ustanova ustanova = ustanovaService.findOne(id);
+
+        noviRekvizit.setUstanova(ustanova);
+        noviRekvizit.setAdminFan((AdminFanModel) admin);
+
+        noviRekvizit.setDatumKreiranja(new Date());
+
+        NoviRekvizit noviRekvizit1 = noviRekvizitService.save(noviRekvizit);
+
+        return new ResponseEntity<NoviRekvizit>(noviRekvizit1,HttpStatus.CREATED);
+    }
+    // findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals
+
+    @RequestMapping(
+            value = "/AdminVidi",     // /{id}  LISTA SVIH koji nisu zavrseni i kojima je status na cekanju + dodatno ogranicenje da nemaju ponuda
+            method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<KorisceniRekvizit>> adminVidi(){
+        List<KorisceniRekvizit> korisceniRekvizitII = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(new Date(), TipKoriscenogRekvizita.NACEKANJU);
+            //  KorisceniRekvizit korisceniRekvizit22 = noviRekvizitService.save(korisceniRekvizit);
+
+        return new ResponseEntity<>(korisceniRekvizitII, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/prihvata/{id}",     // /{id}  LISTA SVIH koji nisu zavrseni i kojima je status na cekanju + dodatno ogranicenje da nemaju ponuda
+            method = RequestMethod.GET,
+          //  consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<KorisceniRekvizit> prihvata(@PathVariable("id") Long id){
+       //  List<KorisceniRekvizit> korisceniRekvizitII = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(new Date(), TipKoriscenogRekvizita.NACEKANJU);
+        //  KorisceniRekvizit korisceniRekvizit22 = noviRekvizitService.save(korisceniRekvizit);
+        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
+
+        // U zavisnosti koji je administrator preuzeo
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik admin = (Korisnik) session.getAttribute("korisnik");
+
+        korisceniRekvizit.setAdminFan((AdminFanModel) admin);
+
+        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.PRIHVACEN);
+        korisceniRekvizitService.save(korisceniRekvizit);
+        return new ResponseEntity<>(korisceniRekvizit, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/odbija/{id}",     // /{id}  LISTA SVIH koji nisu zavrseni i kojima je status na cekanju + dodatno ogranicenje da nemaju ponuda
+            method = RequestMethod.GET,
+         //   consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<KorisceniRekvizit> odbija(@PathVariable("id") Long id){
+        //  List<KorisceniRekvizit> korisceniRekvizitII = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(new Date(), TipKoriscenogRekvizita.NACEKANJU);
+        //  KorisceniRekvizit korisceniRekvizit22 = noviRekvizitService.save(korisceniRekvizit);
+        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
+        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.ODBIJEN);
+        korisceniRekvizitService.save(korisceniRekvizit);
+        return new ResponseEntity<>(korisceniRekvizit, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/azurira",     // da promeni svoje podatke !!!!
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AdminFanModel> azurira( @RequestBody AdminFanModel adminFanModel) {
+        AdminFanModel kreiraniAdmin = adminFanService.save(adminFanModel);
+
+        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.OK);
+    }
 
 }
