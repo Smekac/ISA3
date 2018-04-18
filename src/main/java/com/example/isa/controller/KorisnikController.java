@@ -15,7 +15,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
 @RestController
 public class KorisnikController {
@@ -50,8 +49,28 @@ public class KorisnikController {
         session.setAttribute("korisnik", korisnik);
 
         return  new ResponseEntity<Korisnik>( korisnik, HttpStatus.OK);
-
     }
+
+    @RequestMapping(value = "/logOut",
+                    method = RequestMethod.GET)
+    public ResponseEntity logOut(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        session.invalidate();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+   /* @RequestMapping(value = "/getKorisnik",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Korisnik> getKorisnik(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+
+       Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        return new ResponseEntity(korisnik,HttpStatus.OK);
+    }*/
 
 
 }
