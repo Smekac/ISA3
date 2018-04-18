@@ -1,5 +1,7 @@
 package com.example.isa.controller;
 
+import com.example.isa.Model.Korisnici.AdminFanModel;
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
 import com.example.isa.Model.Ustanova;
@@ -16,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Null;
+import java.util.Date;
 import java.util.List;
 
 import static java.sql.JDBCType.NULL;
@@ -72,14 +75,19 @@ public class NoviRekvizitController {
         produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @RequestBody NoviRekvizit newProp, @PathVariable("id") Long id) {
     Ustanova show = ustanovaService.findOne(id);
-    RegPosetilacModel User = regPosetilacService.findByUsername(REG.getUsername());     // Menjati sve sto je vezano za reg posetioca, posto treba user sa rolama
+    // RegPosetilacModel User = regPosetilacService.findByUsername(REG.getUsername());     // Menjati sve sto je vezano za reg posetioca, posto treba user sa rolama
     newProp.setUstanova(show);
     // newProp.setAdminFan(); //valjda taj korisnik tj. rekvizit ima svog admin-fana ......
+    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+    HttpSession session= attr.getRequest().getSession(true);
+    Korisnik ref = (Korisnik) session.getAttribute("korisnik");
+
+    newProp.setAdminFan((AdminFanModel) ref);
+
     NoviRekvizit savedNewProp = noviRekvizitService.save(newProp);
     return new ResponseEntity<>(savedNewProp, HttpStatus.CREATED);
 }
     //==========  !!!!!!!!!!!!!!!!!!!!!!!!!
-
 
     @RequestMapping(
             value = "/reserve/{id}",
@@ -112,15 +120,25 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
 //    }
 
     @RequestMapping(
-            value = "/{id}",
+            value = "/{id}" ,       // /brojRekvizita/{broj}
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NoviRekvizit> updatePropNew(@RequestBody NoviRekvizit noviRekvizit,@PathVariable Long id) {
+    public ResponseEntity<NoviRekvizit> updatePropNew(@RequestBody NoviRekvizit noviRekvizit,@PathVariable("id") Long id) {
 //        NoviRekvizit updatedPropNew = noviRekvizitService.save(noviRekvizit);
 //        return new ResponseEntity<>(updatedPropNew, HttpStatus.OK);
+
+        NoviRekvizit old = noviRekvizitService.findOne(noviRekvizit.getId());   // noviRekvizit.getId()
+
+      System.out.print(noviRekvizit.getNaslov() + " ________ " + noviRekvizit.getOpis());
         Ustanova show = ustanovaService.findOne(id);
-        NoviRekvizit old = noviRekvizitService.findOne(noviRekvizit.getId());
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik ref = (Korisnik) session.getAttribute("korisnik");
+
+
+        old.setAdminFan((AdminFanModel) ref);
+        old.setDatumKreiranja(new Date());
         old.setUstanova(show);
         old.setNaslov(noviRekvizit.getNaslov());
         old.setOpis(noviRekvizit.getOpis());
