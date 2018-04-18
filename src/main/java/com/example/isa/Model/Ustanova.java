@@ -1,6 +1,7 @@
 package com.example.isa.Model;
 
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class Ustanova {
     @Column
     private double rating;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova")
     private List<Sala> sale;
 

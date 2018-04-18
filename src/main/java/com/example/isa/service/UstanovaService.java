@@ -1,6 +1,7 @@
 package com.example.isa.service;
 
 import com.example.isa.Model.Projekcija;
+import com.example.isa.Model.TipUstanove;
 import com.example.isa.Model.Ustanova;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface UstanovaService {
     void delete(Long id);
 
     List<Projekcija> findRepertoar(Long idUstanove);
+
+    List<Ustanova> findByType(TipUstanove tipUstanove);
+
 }

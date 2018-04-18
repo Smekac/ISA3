@@ -2,6 +2,7 @@ package com.example.isa.controller;
 
 import com.example.isa.Model.Projekcija;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
+import com.example.isa.Model.TipUstanove;
 import com.example.isa.Model.Ustanova;
 import com.example.isa.service.UstanovaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,18 @@ public class UstanovaController {
     UstanovaService ustanovaService;
 
     @RequestMapping(
+            value = "/sve",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Ustanova>> getUstanove() {
-        List<Ustanova> ustanove = ustanovaService.findAll();
+        List<Ustanova> ustanove = null;
+//        if(proba.equals("BIOSKOP")){
+//           ustanove = ustanovaService.findByType(TipUstanove.BIOSKOP);
+//        }else{
+//            ustanove = ustanovaService.findByType(TipUstanove.POZORISTE);
+//
+//        }
+         ustanove = ustanovaService.findAll();
         return new ResponseEntity<>(ustanove, HttpStatus.OK);
     }
 
@@ -37,4 +46,7 @@ public class UstanovaController {
        List<Projekcija> repertoar = ustanovaService.findRepertoar(idUstanove);
         return new ResponseEntity<List<Projekcija>>(repertoar, HttpStatus.OK);
     }
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.isa.repository;
 
+import com.example.isa.Model.TipUstanove;
 import com.example.isa.Model.Ustanova;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,4 +18,7 @@ public interface UstanovaRepository extends JpaRepository<Ustanova,Long> {
     Ustanova save(Ustanova ustanova);
 
     void delete(Long id);
+
+    List<Ustanova> findByType(TipUstanove tipUstanove);
+
 }

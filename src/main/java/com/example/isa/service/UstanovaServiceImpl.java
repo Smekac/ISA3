@@ -2,6 +2,7 @@ package com.example.isa.service;
 
 import com.example.isa.Model.Projekcija;
 import com.example.isa.Model.Sala;
+import com.example.isa.Model.TipUstanove;
 import com.example.isa.Model.Ustanova;
 import com.example.isa.repository.ProjekcijaRepository;
 import com.example.isa.repository.SalaRepository;
@@ -60,6 +61,11 @@ public class UstanovaServiceImpl implements UstanovaService {
         }
 
         return repertoar;
+    }
+
+    @Override
+    public List<Ustanova> findByType(TipUstanove tipUstanove) {
+        return ustanovaRepository.findByType(tipUstanove);
     }
 
 }
