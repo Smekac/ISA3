@@ -5,13 +5,13 @@ import com.example.isa.Model.Prijateljstvo;
 
 public interface PrijateljstvoService {
 
-    Prijateljstvo findByPosiljalac(RegPosetilacModel posiljalac);
-
-    Prijateljstvo findByPrimalac(RegPosetilacModel primalac);
-
     Prijateljstvo findById(Long id);
 
     Prijateljstvo save(Prijateljstvo prijateljstvo);
 
-    boolean posaljiZahtjev(Long idPos,Long idPrim);
+    boolean posaljiZahtjev(Long id);
+
+    void obrisi(Long id);
+
+    void prihvati(Long id);
 }

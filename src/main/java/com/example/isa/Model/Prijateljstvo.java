@@ -13,27 +13,23 @@ public class Prijateljstvo implements Serializable {
     @GeneratedValue( strategy =GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "posiljalac")
-    private RegPosetilacModel posiljalac;
 
-    @ManyToOne
-    @JoinColumn(name = "primalac")
-    private RegPosetilacModel primalac;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="korisnik", referencedColumnName="id" )
+    private RegPosetilacModel korisnik;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
-    private boolean prihvaceno;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="prijatelj", referencedColumnName="id")
+    private RegPosetilacModel prijatelj;
+
+    @Column(nullable = false)
+    private String status;
 
     public Prijateljstvo(){
         super();
     }
 
-    public Prijateljstvo(RegPosetilacModel posiljalac, RegPosetilacModel primalac, boolean prihvaceno) {
-        this.posiljalac = posiljalac;
-        this.primalac = primalac;
-        this.prihvaceno = prihvaceno;
-    }
+
 
     public Long getId() {
         return id;
@@ -43,29 +39,33 @@ public class Prijateljstvo implements Serializable {
         this.id = id;
     }
 
-    public RegPosetilacModel getPosiljalac() {
-        return posiljalac;
+    public RegPosetilacModel getKorisnik() {
+        return korisnik;
     }
 
-    public void setPosiljalac(RegPosetilacModel posiljalac) {
-        this.posiljalac = posiljalac;
+    public Prijateljstvo(RegPosetilacModel korisnik, RegPosetilacModel prijatelj, String status) {
+        this.korisnik = korisnik;
+        this.prijatelj = prijatelj;
+        this.status = status;
     }
 
-    public RegPosetilacModel getPrimalac() {
-        return primalac;
+    public void setKorisnik(RegPosetilacModel korisnik) {
+        this.korisnik = korisnik;
     }
 
-    public void setPrimalac(RegPosetilacModel primalac) {
-        this.primalac = primalac;
+    public RegPosetilacModel getPrijatelj() {
+        return prijatelj;
     }
 
-    public boolean isPrihvaceno() {
-        return prihvaceno;
+    public void setPrijatelj(RegPosetilacModel prijatelj) {
+        this.prijatelj = prijatelj;
     }
 
-    public void setPrihvaceno(boolean prihvaceno) {
-        this.prihvaceno = prihvaceno;
+    public String getStatus() {
+        return status;
     }
 
-
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
