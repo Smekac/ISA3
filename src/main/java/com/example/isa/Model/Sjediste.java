@@ -1,5 +1,7 @@
 package com.example.isa.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.naming.directory.SearchResult;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class Sjediste implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "segment")
+    @JsonIgnore
     private Segment segment;
 
     @Column(nullable = false)

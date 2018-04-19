@@ -39,8 +39,9 @@ public class Ustanova {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova")
     private List<Sala> sale;
 
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "ustanova")        //Vlasnik ustanova mapira iz Novi Rekvizit
-//    private Set<NoviRekvizit> rekvizits;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova")
+    private List<Projekcija> projekcije;
 
     public Long getId() {
         return id;
@@ -66,17 +67,18 @@ public class Ustanova {
         this.type = type;
     }
 
-//    public Set<NoviRekvizit> getRekvizits() {
-//        return rekvizits;
-//    }
-//
-//    public void setRekvizits(Set<NoviRekvizit> rekvizits) {
-//        this.rekvizits = rekvizits;
-//    }
-
     public Ustanova(){
         super();
         sale =new  ArrayList<Sala>();
+        projekcije = new ArrayList<>();
+    }
+
+    public List<Projekcija> getProjekcije() {
+        return projekcije;
+    }
+
+    public void setProjekcije(List<Projekcija> projekcije) {
+        this.projekcije = projekcije;
     }
 
     public Ustanova(String name, TipUstanove type, String addres, String description, double rating, List<Sala> sale) {

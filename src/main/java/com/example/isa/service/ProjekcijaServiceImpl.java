@@ -24,7 +24,7 @@ public class ProjekcijaServiceImpl implements ProjekcijaService {
     @Override
     public List<DatumiProjekcije> findDatumiProjekcije(Long id) {
         Projekcija projekcija =  projekcijaRepository.findOne(id);
-        List<DatumiProjekcije> datumi =datumiProjekcijeRepository.findByProjekcije(projekcija);
+        List<DatumiProjekcije> datumi =datumiProjekcijeRepository.findByProjekcija(projekcija);
         return datumi;
     }
 }

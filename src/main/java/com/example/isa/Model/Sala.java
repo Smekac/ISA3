@@ -1,5 +1,7 @@
 package com.example.isa.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,26 +17,28 @@ public class Sala implements Serializable {
     private String naziv;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "ustanova", nullable = false)
     private Ustanova ustanova;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sala")
     private List<Segment> segmenti;
 
-    @OneToMany(fetch =FetchType.LAZY ,mappedBy = "sala")
-    private List<Projekcija> projekcije;
+
+    @ManyToMany(fetch =FetchType.LAZY ,mappedBy = "sale")
+    @JsonIgnore
+    private List<DatumiProjekcije> datumiprojekcije;
 
     Sala(){
         super();
         segmenti = new ArrayList<Segment>();
-        projekcije = new ArrayList<Projekcija>();
+        datumiprojekcije = new ArrayList<DatumiProjekcije>();
     }
 
     public Sala(String naziv, Ustanova ustanova, List<Segment> segmenti, List<Projekcija> projekcije) {
         this.naziv = naziv;
         this.ustanova = ustanova;
         this.segmenti = segmenti;
-        this.projekcije = projekcije;
     }
 
     public Long getId() {
@@ -69,12 +73,11 @@ public class Sala implements Serializable {
         this.segmenti = segmenti;
     }
 
-    public List<Projekcija> getProjekcije() {
-        return projekcije;
+    public List<DatumiProjekcije> getDatumiprojekcije() {
+        return datumiprojekcije;
     }
 
-    public void setProjekcije(List<Projekcija> projekcije) {
-        this.projekcije = projekcije;
+    public void setDatumiprojekcije(List<DatumiProjekcije> datumiprojekcije) {
+        this.datumiprojekcije = datumiprojekcije;
     }
-
 }

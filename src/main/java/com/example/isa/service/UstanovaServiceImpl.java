@@ -51,16 +51,9 @@ public class UstanovaServiceImpl implements UstanovaService {
 
     @Override
     public List<Projekcija> findRepertoar(Long idUstanove) {
-        List<Projekcija> repertoar = new ArrayList<Projekcija>();
 
-        List<Sala> saleUstanove = salaRepository.findByUstanova(ustanovaRepository.findOne(idUstanove));
-        if(saleUstanove != null){
-            for( Sala sala : saleUstanove){
-               repertoar.addAll(projekcijaRepository.findBySala(sala));
-            }
-        }
 
-        return repertoar;
+        return projekcijaRepository.findByUstanova(ustanovaRepository.findOne(idUstanove));
     }
 
     @Override

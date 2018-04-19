@@ -26,12 +26,13 @@ INSERT INTO bid (accepted, price, date_created,korisceni_rekvizit_id, registrova
 
 INSERT INTO sala(id,naziv,ustanova) VALUES (1,'SALA 1', 1);
 
-INSERT INTO projekcija(id, average_score,description,director, genre,image_url,name, trajanje, sala) VALUES(1,4, 'Jako lijepa prica', NULL ,NULL ,NULL ,'Carobnjak iz oza',125,1);
+INSERT INTO projekcija(id, average_score,description,director, genre,image_url,name, trajanje, ustanova) VALUES(1,4, 'Jako lijepa prica', NULL ,NULL ,NULL ,'Carobnjak iz oza',125,1);
 
-INSERT  INTO datumi_projekcije( id, datum, termin, cijena) VALUES (1, '2018-01-29', '03:25:24', 350);
-INSERT  INTO datumi_projekcije( id, datum, termin, cijena) VALUES (2, '2018-01-29','05:50:24', 400);
+INSERT  INTO datumi_projekcije( id, datum, termin, cijena, projekcija) VALUES (1, '2018-01-29', '03:25:24', 350,1);
+INSERT  INTO datumi_projekcije( id, datum, termin, cijena,projekcija) VALUES (2, '2018-01-29','05:50:24', 400,1);
 
-INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,1);
-INSERT INTO projekcije_datumiprojekcije(projekcija_id, datumprojekcije_id) VALUES (1,2);
+INSERT INTO sale_datumiprojekcije(datumprojekcije_id, sale_id) VALUES (1,1);
+INSERT INTO sale_datumiprojekcije(datumprojekcije_id, sale_id) VALUES (2,1);
 
-INSERT INTO rezervacija (id,posetilac_id, projekcija_id) VALUES (1,1,1);
+INSERT INTO segment (id,tip_segmenta,sala, broj_redova, brojsjedistauredu) VALUES (1,'UPSTAGE',1,1,1);
+INSERT INTO sjediste(id,pozicija, red, rezervisano, segment) VALUES (1,1,1,FALSE ,1);

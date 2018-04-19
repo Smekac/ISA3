@@ -26,13 +26,18 @@ public class DatumiProjekcije implements Serializable {
     @Column(nullable = false)
     private double cijena;
 
-    @ManyToMany(mappedBy = "datumiProjekcije")
+    @ManyToOne
     @JsonIgnore
-    private List<Projekcija> projekcije;
+    @JoinColumn(name = "projekcija", nullable = false)
+    private Projekcija projekcija;
+
+    @ManyToMany
+    @JoinTable(name= "sale_datumiprojekcije", joinColumns= @JoinColumn(name="datumprojekcije_id"),
+            inverseJoinColumns = @JoinColumn(name ="sale_id" ))
+    private List<Sala> sale;
 
     public DatumiProjekcije(){
         super();
-        projekcije = new ArrayList<>();
     }
 
     public Long getId() {
@@ -43,12 +48,12 @@ public class DatumiProjekcije implements Serializable {
         this.id = id;
     }
 
-    public List<Projekcija> getProjekcije() {
-        return projekcije;
+    public Projekcija getProjekcija() {
+        return projekcija;
     }
 
-    public void setProjekcije(List<Projekcija> projekcije) {
-        this.projekcije = projekcije;
+    public void setProjekcija(Projekcija projekcija) {
+        this.projekcija = projekcija;
     }
 
     public Date getDatum() {
@@ -74,5 +79,13 @@ public class DatumiProjekcije implements Serializable {
 
     public void setCijena(double cijena) {
         this.cijena = cijena;
+    }
+
+    public List<Sala> getSale() {
+        return sale;
+    }
+
+    public void setSale(List<Sala> sale) {
+        this.sale = sale;
     }
 }

@@ -41,9 +41,9 @@ public class Projekcija {
 
 
     @ManyToOne
-    @JoinColumn(name = "sala")
+    @JoinColumn(name = "ustanova", nullable = false)
     @JsonIgnore
-    private Sala sala;
+    private Ustanova ustanova;
 
     @ManyToMany
     @JoinTable(name="projekcija_glumci", joinColumns=@JoinColumn(name="projekcija_id"),
@@ -51,32 +51,22 @@ public class Projekcija {
     @JsonIgnore
     private List<Glumac> glumci;
 
-    @ManyToMany
-    @JoinTable(name= "projekcije_datumiprojekcije", joinColumns= @JoinColumn(name="projekcija_id"),
-            inverseJoinColumns = @JoinColumn(name ="datumprojekcije_id" ))
-    @JsonIgnore
+    @OneToMany(mappedBy = "projekcija")
     private List<DatumiProjekcije> datumiProjekcije;
 
     public  Projekcija(){
     super();
     glumci = new ArrayList<Glumac>();
     datumiProjekcije = new ArrayList<>();
+
 }
 
-    public Sala getSala() {
-        return sala;
+    public Ustanova getUstanova() {
+        return ustanova;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setUstanova(Ustanova ustanova) {
+        this.ustanova = ustanova;
     }
 
     public double getAverage_score() {
@@ -94,7 +84,6 @@ public class Projekcija {
     public void setTrajanje(int trajanje) {
         this.trajanje = trajanje;
     }
-
 
     public List<Glumac> getGlumci() {
         return glumci;
@@ -136,21 +125,6 @@ public class Projekcija {
         this.director = director;
     }
 
-    public String getImageUrl() {
-        return image_url;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.image_url = imageUrl;
-    }
-
-    public double getAverageScore() {
-        return average_score;
-    }
-
-    public void setAverageScore(double averageScore) {
-        this.average_score = averageScore;
-    }
 
     public String getDescription() {
         return description;
@@ -160,7 +134,6 @@ public class Projekcija {
         this.description = description;
     }
 
-
     public List<DatumiProjekcije> getDatumiProjekcije() {
         return datumiProjekcije;
     }
@@ -169,5 +142,11 @@ public class Projekcija {
         this.datumiProjekcije = datumiProjekcije;
     }
 
+    public String getImage_url() {
+        return image_url;
+    }
 
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 }

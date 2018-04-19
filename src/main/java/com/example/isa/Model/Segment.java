@@ -1,5 +1,7 @@
 package com.example.isa.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,13 +21,35 @@ public class Segment implements Serializable {
     @OneToMany(mappedBy = "segment")
     private List<Sjediste> sjedista;
 
+    @Column
+    private int brojRedova;
+
+    @Column
+    private int brojSjedistaURedu;
 
     @ManyToOne
     @JoinColumn(name = "sala", nullable = false)
+    @JsonIgnore
     private Sala sala;
 
     public Sala getSala() {
         return sala;
+    }
+
+    public int getBrojRedova() {
+        return brojRedova;
+    }
+
+    public void setBrojRedova(int brojRedova) {
+        this.brojRedova = brojRedova;
+    }
+
+    public int getBrojSjedistaURedu() {
+        return brojSjedistaURedu;
+    }
+
+    public void setBrojSjedistaURedu(int brojSjedistaURedu) {
+        this.brojSjedistaURedu = brojSjedistaURedu;
     }
 
     public void setSala(Sala sala) {

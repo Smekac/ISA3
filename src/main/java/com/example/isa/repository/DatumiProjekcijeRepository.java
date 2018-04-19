@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface DatumiProjekcijeRepository extends JpaRepository<DatumiProjekcije,Long> {
 
-    List<DatumiProjekcije> findByProjekcije(Projekcija projekcija);
+    List<DatumiProjekcije> findByProjekcija(Projekcija projekcija);
 }
