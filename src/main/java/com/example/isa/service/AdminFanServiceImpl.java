@@ -35,4 +35,16 @@ public class AdminFanServiceImpl implements AdminFanService {
     public void delete(Long id) {
         adminFanRepository.delete(id);
     }
+
+    @Override
+    public AdminFanModel findByEmail(String email) {
+        return adminFanRepository.findByEmail(email);
+    }
+
+    @Override
+    public AdminFanModel findByPassword(String password) {
+        return adminFanRepository.findByPassword(password);
+    }
+
+
 }

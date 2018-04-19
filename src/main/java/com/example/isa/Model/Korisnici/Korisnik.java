@@ -24,20 +24,20 @@ public abstract class Korisnik implements Serializable{
     @Column(unique = true,nullable = false)
     private Long id;
 
-    @NotBlank
+    // @NotBlank
     @Column(nullable = false,unique = true)
     private String username;
 
-    @JsonProperty
-    @NotBlank
+    // @JsonProperty
+    // @NotBlank
     @Column(nullable = false)
     private String password;
 
-    @NotBlank
+    // @NotBlank
     @Column(nullable = false)
     private String ime;
 
-    @NotBlank
+    // @NotBlank
     @Column(nullable = false)
     private String prezime;
 
@@ -45,7 +45,7 @@ public abstract class Korisnik implements Serializable{
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank
+    // @NotBlank
     @Column(nullable = false)
     private String grad;
 

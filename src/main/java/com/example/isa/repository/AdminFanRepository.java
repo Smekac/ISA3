@@ -18,4 +18,9 @@ public interface AdminFanRepository extends JpaRepository<AdminFanModel, Long>{
 
     void delete(Long id);
 
+    AdminFanModel findByEmail( String email);
+
+    AdminFanModel findByPassword( String password );
+
+
 }

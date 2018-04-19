@@ -1,4 +1,4 @@
-package com.example.isa.dto;
+package com.example.isa.DTO;
 
 public class Credentials {
     private String email;

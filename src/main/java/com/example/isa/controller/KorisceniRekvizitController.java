@@ -185,7 +185,6 @@ public class KorisceniRekvizitController {
     }
 
 
-    //all exept finished
     @RequestMapping(
             value = "/not-finished",
             method = RequestMethod.GET,
@@ -194,30 +193,5 @@ public class KorisceniRekvizitController {
         List<KorisceniRekvizit> usedProps = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusNot(new java.util.Date(), TipKoriscenogRekvizita.ODBIJEN);
         return new ResponseEntity<>(usedProps, HttpStatus.OK);
     }
-
-//
-//    @RequestMapping(
-//            value = "/promeniKorisceniRekvizit",
-//            method = RequestMethod.PUT,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public ResponseEntity<KorisceniRekvizit> promeniVrednost(@RequestBody KorisceniRekvizit admin){
-//        KorisceniRekvizit kreiraniAdmin = korisceniRekvizitService.save(admin);
-//        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.OK);
-//
-//    }
-//
-//
-//    @RequestMapping(
-//            value = "/izbrisiKorisceniRekvizit/{id}",
-//            method = RequestMethod.DELETE,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public ResponseEntity<KorisceniRekvizit> izbrisi(@PathVariable("id") Long id){
-//        korisceniRekvizitService.delete(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
 
 }

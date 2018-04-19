@@ -16,5 +16,9 @@ public interface AdminFanService {
     AdminFanModel save(AdminFanModel adminSys);
 
     void delete(Long id);
+    AdminFanModel findByEmail( String email);
+
+    AdminFanModel findByPassword( String password );
+
 
 }
