@@ -17,8 +17,6 @@ public interface RegPosetilacService {
 
     void delete(Long id);
 
-    boolean sendEmai(RegPosetilacModel regPosetilac);
-
     void confirmEmailAdress(Long id);
 
     RegPosetilacModel findByUsername(String username);

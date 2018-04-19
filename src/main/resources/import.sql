@@ -34,5 +34,5 @@ INSERT  INTO datumi_projekcije( id, datum, termin, cijena,projekcija) VALUES (2,
 INSERT INTO sale_datumiprojekcije(datumprojekcije_id, sale_id) VALUES (1,1);
 INSERT INTO sale_datumiprojekcije(datumprojekcije_id, sale_id) VALUES (2,1);
 
-INSERT INTO segment (id,tip_segmenta,sala, broj_redova, brojsjedistauredu) VALUES (1,'UPSTAGE',1,1,1);
+INSERT INTO segment (id,tip_segmenta,sala,broj_redova, broj_sjedista) VALUES (1,'UPSTAGE',1,1,1);
 INSERT INTO sjediste(id,pozicija, red, rezervisano, segment) VALUES (1,1,1,FALSE ,1);

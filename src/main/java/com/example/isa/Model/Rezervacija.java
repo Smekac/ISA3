@@ -17,7 +17,7 @@ public class Rezervacija implements Serializable {
     private Long id;
 
     @ManyToOne(optional = false)
-    private Projekcija projekcija;
+    private DatumiProjekcije datumiProjekcije;
 
     @OneToMany(fetch = FetchType.LAZY )
     private List<Sjediste> sjedista;
@@ -36,13 +36,7 @@ public class Rezervacija implements Serializable {
         pozvani = new ArrayList<RegPosetilacModel>();
     }
 
-    public Rezervacija(Projekcija projekcija, List<Sjediste> sjedista,
-                       RegPosetilacModel posetilac, List<RegPosetilacModel> pozvani) {
-        this.projekcija = projekcija;
-        this.sjedista = sjedista;
-        this.posetilac = posetilac;
-        this.pozvani = pozvani;
-    }
+
 
     public Long getId() {
         return id;
@@ -52,12 +46,12 @@ public class Rezervacija implements Serializable {
         this.id = id;
     }
 
-    public Projekcija getProjekcija() {
-        return projekcija;
+    public DatumiProjekcije getDatumiProjekcije() {
+        return datumiProjekcije;
     }
 
-    public void setProjekcija(Projekcija projekcija) {
-        this.projekcija = projekcija;
+    public void setDatumiProjekcije(DatumiProjekcije datumiProjekcije) {
+        this.datumiProjekcije = datumiProjekcije;
     }
 
     public List<Sjediste> getSjedista() {

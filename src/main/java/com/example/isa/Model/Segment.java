@@ -21,11 +21,11 @@ public class Segment implements Serializable {
     @OneToMany(mappedBy = "segment")
     private List<Sjediste> sjedista;
 
-    @Column
+    @Column(name = "broj_redova")
     private int brojRedova;
 
-    @Column
-    private int brojSjedistaURedu;
+    @Column(name = "broj_sjedista")
+    private int broj_sjedista;
 
     @ManyToOne
     @JoinColumn(name = "sala", nullable = false)
@@ -44,12 +44,12 @@ public class Segment implements Serializable {
         this.brojRedova = brojRedova;
     }
 
-    public int getBrojSjedistaURedu() {
-        return brojSjedistaURedu;
+    public int getBroj_sjedista() {
+        return broj_sjedista;
     }
 
-    public void setBrojSjedistaURedu(int brojSjedistaURedu) {
-        this.brojSjedistaURedu = brojSjedistaURedu;
+    public void setBroj_sjedista(int broj_sjedista) {
+        this.broj_sjedista = broj_sjedista;
     }
 
     public void setSala(Sala sala) {

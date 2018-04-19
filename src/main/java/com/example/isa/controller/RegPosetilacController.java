@@ -1,6 +1,7 @@
 package com.example.isa.controller;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.service.MessageService;
 import com.example.isa.service.RegPosetilacService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class RegPosetilacController {
 
     @Autowired
     private RegPosetilacService regPosetilacService;
-
+    @Autowired
+    private MessageService messageService;
 
 
     @RequestMapping(
@@ -51,7 +53,9 @@ public class RegPosetilacController {
         }
 
         RegPosetilacModel savedRegisteredUser = regPosetilacService.save(newUser);
-        regPosetilacService.sendEmai(savedRegisteredUser);
+        //regPosetilacService.sendEmai(savedRegisteredUser);
+        String poruka = "http://localhost:8080/potvrdaMaila/"+savedRegisteredUser.getId();
+        messageService.sendEmai( savedRegisteredUser.getEmail(), poruka);
 
         return new ResponseEntity<>(savedRegisteredUser, HttpStatus.CREATED);
     }

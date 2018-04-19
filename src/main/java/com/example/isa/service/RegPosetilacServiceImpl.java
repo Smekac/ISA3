@@ -21,10 +21,6 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
 
     @Autowired
     private RegPosetilacRepository regPosetilacRepository;
-    @Autowired
-    private Environment env;
-    @Autowired
-    private JavaMailSender mailSender;
 
     @Override
     public List<RegPosetilacModel> findAll() {
@@ -48,30 +44,6 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
     }
 
 
-    // metoda za slanje maila za potvrdu
-    @Override
-    public boolean sendEmai(RegPosetilacModel regPosetilac){
-
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(regPosetilac.getEmail());
-
-        mail.setSubject("Potvrda mail adrese");
-
-        mail.setText("http://localhost:8080/potvrdaMaila/"+regPosetilac.getId());
-
-
-        mail.setFrom(env.getProperty("spring.mail.username"));
-
-
-        try {
-            mailSender.send(mail);
-        }catch (MailException mex){
-            System.out.println(mex);
-            return false;
-        }
-        System.out.println("Poslao na " + regPosetilac.getEmail());
-        return true;
-    }
 
 
 
