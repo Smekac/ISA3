@@ -7,6 +7,7 @@ import com.example.isa.Model.Rekviziti.NoviRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
 import com.example.isa.Model.Ustanova;
 import com.example.isa.service.*;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -199,15 +200,69 @@ public class AdminFanController {
     }
 
     @RequestMapping(
-            value = "/azurira",     // da promeni svoje podatke !!!!
+            value = "/promenaAdmina",     // da promeni svoje podatke !!!!
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<AdminFanModel> azurira( @RequestBody AdminFanModel adminFanModel) {
-        AdminFanModel kreiraniAdmin = adminFanService.save(adminFanModel);
 
-        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.OK);
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik ref = (Korisnik) session.getAttribute("korisnik");
+
+
+        // AdminFanModel kreiraniAdmin = adminFanService.findByPassword(adminFanModel.getPassword());                                           // adminFanService.save(adminFanModel);
+        AdminFanModel kreiraniAdmin = adminFanService.findOne(ref.getId());     // Sigurnijee !!!
+
+        kreiraniAdmin.setEmail(adminFanModel.getEmail());
+        kreiraniAdmin.setGrad(adminFanModel.getGrad());
+        kreiraniAdmin.setIme(adminFanModel.getIme());
+        kreiraniAdmin.setNumber(adminFanModel.getNumber());
+        kreiraniAdmin.setUsername(adminFanModel.getUsername());
+        kreiraniAdmin.setPrezime(adminFanModel.getPrezime());
+        // kreiraniAdmin.setTipKorisnika("ADMINFAN");
+        kreiraniAdmin.setPassword(adminFanModel.getPassword());
+
+
+        adminFanService.save(kreiraniAdmin);
+
+        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.CREATED);
     }
+
+
+    @RequestMapping(
+            value = "/promenaSifre",     // da promeni svoje podatke !!!!
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AdminFanModel> promenaSifre( @RequestBody AdminFanModel korisnik ) {
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session= attr.getRequest().getSession(true);
+//        Korisnik ref = (Korisnik) session.getAttribute("korisnik");
+
+        AdminFanModel adi = adminFanService.findOne(korisnik.getId());
+
+        adi.setPassword(korisnik.getPassword());
+
+        adminFanService.save(adi);
+        return new ResponseEntity<>( adi ,HttpStatus.OK);
+    }
+
+
+//
+//    @RequestMapping(
+//            value = "/azurira",     // da promeni svoje podatke !!!!
+//            method = RequestMethod.PUT,
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public ResponseEntity<AdminFanModel> promenaAdmina( @RequestBody  adminFanModel) {
+//        AdminFanModel kreiraniAdmin = adminFanService.save(adminFanModel);
+//
+//        return new ResponseEntity<>(kreiraniAdmin,HttpStatus.OK);
+//    }
+
 
 }
