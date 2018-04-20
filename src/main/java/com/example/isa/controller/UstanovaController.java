@@ -22,17 +22,20 @@ public class UstanovaController {
     UstanovaService ustanovaService;
 
     @RequestMapping(
+            value ="/{tipUstanove}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Ustanova>> getUstanove() {
+    public ResponseEntity<List<Ustanova>> getUstanove(@PathVariable("tipUstanove")String tipUstanove) {
         List<Ustanova> ustanove = null;
-//        if(proba.equals("BIOSKOP")){
-//           ustanove = ustanovaService.findByType(TipUstanove.BIOSKOP);
-//        }else{
-//            ustanove = ustanovaService.findByType(TipUstanove.POZORISTE);
-//
-//        }
-         ustanove = ustanovaService.findAll();
+      if(tipUstanove.equalsIgnoreCase("bioskop")){
+          ustanove = ustanovaService.findByType(TipUstanove.BIOSKOP);
+        }else if(tipUstanove.equalsIgnoreCase("pozoriste")){
+            ustanove = ustanovaService.findByType(TipUstanove.POZORISTE);
+
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
+       //  ustanove = ustanovaService.findAll();
         return new ResponseEntity<>(ustanove, HttpStatus.OK);
     }
 
