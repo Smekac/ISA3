@@ -25,19 +25,18 @@ public class Sjediste implements Serializable {
     private  int pozicija;
 
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
-    private boolean rezervisano;
-
     Sjediste(){
         super();
     }
 
-    public Sjediste(Segment segment, int red, int pozicija, boolean rezervisano) {
+    public Sjediste(Segment segment, int red, int pozicija) {
         this.segment = segment;
         this.red = red;
         this.pozicija = pozicija;
-        this.rezervisano = rezervisano;
+
     }
+
+
 
     public int getRed() {
         return red;
@@ -71,11 +70,4 @@ public class Sjediste implements Serializable {
         this.segment = segment;
     }
 
-    public boolean isRezervisano() {
-        return rezervisano;
-    }
-
-    public void setRezervisano(boolean rezervisano) {
-        this.rezervisano = rezervisano;
-    }
 }

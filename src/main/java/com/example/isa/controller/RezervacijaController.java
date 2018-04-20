@@ -33,5 +33,33 @@ public class RezervacijaController {
         Rezervacija rezervacija = rezervacijaService.findOne(id);
         return new ResponseEntity<Rezervacija>(rezervacija,HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/otkazi_poziv/{idRezervacije}/{idKorisnika}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity otkaziPoziv(@PathVariable("idRezervacije") Long idRezervacije,@PathVariable("idKorisnika") Long idKorisnika){
+       rezervacijaService.otkaziPoziv(idRezervacije,idKorisnika);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/prihvati_poziv/{idRezervacije}/{idKorisnika}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity prihvatiPoziv(@PathVariable("idRezervacije") Long idRezervacije,@PathVariable("idKorisnika") Long idKorisnika){
+        rezervacijaService.prihvatiPoziv(idRezervacije,idKorisnika);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/otkazi_rezervaciju/{idRezervacije}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity otkaziRezervaciju(@PathVariable("idRezervacije") Long idRezervacije){
+        if(rezervacijaService.otkaziRezervaciju(idRezervacije))
+        return new ResponseEntity(HttpStatus.OK);
+
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+    }
 }
 
