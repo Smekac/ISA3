@@ -110,19 +110,23 @@ public class KorisceniRekvizitController {
         Bid bid = bidService.findOne(odobrena); // pronadje onu koja je odobrena
 
         // bid.getRegistrovaniKorisnik().getEmail();
+        String email = bid.getRegistrovaniKorisnik().getEmail();
+        String poruka =   "Vasa litacija je odobrena cestitamo !!! za rekvizit ";
 
-        messageService.sendEmai(bid.getRegistrovaniKorisnik().getEmail(),"Vasa litacija je odobrena cestitamo !!! za rekvizit : " + korisceniRekvizit.getNaslov());
+        messageService.sendEmai( email , poruka );
 
          List<Bid> sveLicitacije = korisceniRekvizit.getBids();
+
+
 
          for (int i=0;i < sveLicitacije.size() ; i++) {
 
              if(bid.getId() == sveLicitacije.get(i).getId()  ) {
 
-                 messageService.sendEmai(bid.getRegistrovaniKorisnik().getEmail(),"Vasa litacija je odobrena cestitamo !!! za rekvizit : " + korisceniRekvizit.getNaslov());
+                 messageService.sendEmai(bid.getRegistrovaniKorisnik().getEmail(),"Vasa litacija je odobrena cestitamo !!! za rekvizit : " );
 
              } else {
-                 messageService.sendEmai(sveLicitacije.get(i).getRegistrovaniKorisnik().getEmail(),"Vasa litacija NIJE prihvacena za rekvizit : " + korisceniRekvizit.getNaslov());
+                 messageService.sendEmai(sveLicitacije.get(i).getRegistrovaniKorisnik().getEmail(),"Vasa litacija NIJE prihvacena za rekvizit : " );
 
              }
          }
@@ -130,7 +134,7 @@ public class KorisceniRekvizitController {
 
         korisceniRekvizit.setAcceptedBid( bid.getId() );     //  .setAcceptedBid( bid.getId() );
         korisceniRekvizitService.save(korisceniRekvizit);
-        return new ResponseEntity<>(bid,HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
