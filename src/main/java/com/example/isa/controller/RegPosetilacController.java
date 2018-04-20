@@ -1,6 +1,7 @@
 package com.example.isa.controller;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.Model.Prijateljstvo;
 import com.example.isa.service.MessageService;
 import com.example.isa.service.RegPosetilacService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +66,11 @@ public class RegPosetilacController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RegPosetilacModel> updateRegisteredUser(@RequestBody RegPosetilacModel RegisteredUser) {
-        RegPosetilacModel updatedRegisteredUser = regPosetilacService.save(RegisteredUser);
+    public ResponseEntity<RegPosetilacModel> updateRegisteredUser(@Validated @RequestBody RegPosetilacModel registeredUser) {
+        RegPosetilacModel updatedRegisteredUser = regPosetilacService.update(registeredUser);
+        if(updatedRegisteredUser == null)
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+
         return new ResponseEntity<>(updatedRegisteredUser, HttpStatus.OK);
     }
 
@@ -85,7 +89,12 @@ public class RegPosetilacController {
     public void potvrdaEmailAdrese(@PathVariable("id") String idKorisnika){
         Long id = Long.parseLong(idKorisnika);
         regPosetilacService.confirmEmailAdress(id);
+    }
 
+    @RequestMapping(value = "/prijatelji",
+                    method = RequestMethod.GET)
+    public ResponseEntity<List<Prijateljstvo>> getPrijatelji(){
+        return new ResponseEntity<List<Prijateljstvo>>(regPosetilacService.findPrijatelje(), HttpStatus.OK);
     }
 
 

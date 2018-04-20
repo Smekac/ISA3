@@ -1,6 +1,7 @@
 package com.example.isa.service;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.Model.Prijateljstvo;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface RegPosetilacService {
 
     RegPosetilacModel findByUsername(String username);
 
+    List<Prijateljstvo> findPrijatelje();
 
+    RegPosetilacModel update(RegPosetilacModel regPosetilacModel);
 }

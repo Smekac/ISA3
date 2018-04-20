@@ -23,7 +23,7 @@ public class PrijateljstvoController {
        if( prijateljstvoService.posaljiZahtjev(id))
         return new ResponseEntity(HttpStatus.OK);
        else
-           return new ResponseEntity(HttpStatus.I_AM_A_TEAPOT);
+           return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "/obrisi/{id}")

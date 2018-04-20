@@ -1,6 +1,7 @@
 package com.example.isa.repository;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.Model.Prijateljstvo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface RegPosetilacRepository extends JpaRepository<RegPosetilacModel,
     void delete(Long id);
 
     RegPosetilacModel findByUsername(String username);
+
 }

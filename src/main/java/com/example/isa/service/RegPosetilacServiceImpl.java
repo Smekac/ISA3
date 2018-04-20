@@ -1,6 +1,8 @@
 package com.example.isa.service;
 
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.Model.Prijateljstvo;
 import com.example.isa.repository.RegPosetilacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -8,7 +10,10 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -59,6 +64,41 @@ public class RegPosetilacServiceImpl implements RegPosetilacService {
     @Override
     public RegPosetilacModel findByUsername(String username) {
         return regPosetilacRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<Prijateljstvo> findPrijatelje() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+
+        RegPosetilacModel ulogovan = (RegPosetilacModel) session.getAttribute("korisnik");
+        if(ulogovan != null)
+        return ulogovan.getPrijatelji();
+
+        return null;
+    }
+
+    @Override
+    public RegPosetilacModel update(RegPosetilacModel regPosetilacModel) {
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        RegPosetilacModel kor = (RegPosetilacModel) session.getAttribute("korisnik");
+
+        if(kor != null) {
+
+            kor.setEmail(regPosetilacModel.getEmail());
+            kor.setGrad(regPosetilacModel.getGrad());
+            kor.setIme(regPosetilacModel.getIme());
+            kor.setNumber(regPosetilacModel.getNumber());
+            kor.setUsername(regPosetilacModel.getUsername());
+            kor.setPrezime(regPosetilacModel.getPrezime());
+            kor.setPassword(regPosetilacModel.getPassword());
+
+
+            return regPosetilacRepository.save(kor);
+        }
+        return null;
     }
 
 }
