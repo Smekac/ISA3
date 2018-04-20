@@ -18,6 +18,7 @@ import java.util.List;
 public class RegPosetilacModel extends Korisnik implements Serializable{
 
     // da li je potvrdio mail adresu
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private boolean accepted;

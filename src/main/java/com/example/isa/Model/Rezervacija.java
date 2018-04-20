@@ -1,6 +1,7 @@
 package com.example.isa.Model;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 import javax.persistence.*;
@@ -24,9 +25,11 @@ public class Rezervacija implements Serializable {
 
 
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties(value = {"username","password", "email", "grad","number", "tipKorisnika", "accepted"})
     private RegPosetilacModel posetilac;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"username","password", "email", "grad","number", "tipKorisnika", "accepted"})
     private List<RegPosetilacModel> pozvani;
 
 
