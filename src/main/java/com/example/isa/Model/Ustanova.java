@@ -26,7 +26,7 @@ public class Ustanova {
     @Enumerated(EnumType.STRING)
     private TipUstanove type;
 
-    @Column
+    @Column(unique = true)
     private String addres;
 
     @Column

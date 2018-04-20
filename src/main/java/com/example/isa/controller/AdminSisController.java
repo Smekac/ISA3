@@ -1,7 +1,11 @@
 package com.example.isa.controller;
 
+import com.example.isa.Model.Korisnici.AdminFanModel;
 import com.example.isa.Model.Korisnici.AdminSisModel;
+import com.example.isa.Model.Korisnici.AdminUstanoveModel;
+import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.service.AdminSisService;
+import com.example.isa.service.KorisnikService;
 import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,15 +19,18 @@ import java.util.List;
 /**
  * Created by Smekac on 2/1/2018.
  */
+
+@RequestMapping( value = "/sis")
 @RestController
 public class AdminSisController {
 
     @Autowired
     private AdminSisService adminSisService;
 
+    @Autowired
+    private KorisnikService korisnikService;
 
     @RequestMapping(
-            value = "/nadjiAdmineSistema",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdminSisModel>> getAllAdminSis() {               //TREBA DA MI DA JSON objeka)
@@ -33,7 +40,7 @@ public class AdminSisController {
     }
 
     @RequestMapping(
-            value = "/nadjiAdminaSistema/{id}",
+            value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AdminSisModel> getOneAdminSis(@PathVariable("id") Long id){
@@ -43,7 +50,6 @@ public class AdminSisController {
     }
 
     @RequestMapping(
-            value = "/kreirajAdmina",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -54,7 +60,6 @@ public class AdminSisController {
     }
 
     @RequestMapping(
-            value = "/promeniAdmina",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -67,7 +72,7 @@ public class AdminSisController {
 
 
     @RequestMapping(
-            value = "/izbrisiAdmina/{id}",
+            value = "/{id}",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -76,6 +81,34 @@ public class AdminSisController {
         adminSisService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+        // /kreirajAdminaFan ima u njegovom kontrkontroleru
+
+    @RequestMapping(
+            value = "/dodavanje",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AdminSisModel> dodajAdminFana(@RequestBody AdminSisModel adminSisModel){
+        adminSisService.save( adminSisModel);
+        return new ResponseEntity<>(adminSisModel,HttpStatus.CREATED);
+    }
+
+    @RequestMapping(
+            value = "/adminustanove",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AdminUstanoveModel> dodajAdminaUstgnove(@RequestBody AdminUstanoveModel adminUstanoveModel){
+        //adminSisService.save( adminSisModel);
+        korisnikService.save(adminUstanoveModel);
+
+        return new ResponseEntity<>(adminUstanoveModel,HttpStatus.CREATED);
+    }
+
+
 
 
 }

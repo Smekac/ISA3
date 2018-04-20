@@ -3,7 +3,7 @@
 -- Kada se stavi ime import.sql radi !!!!
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Novi Sad', 'adminfan@adminfan', 'Ivan', '0635569989', 'adminfan', 'Perkovic', 'adminfan');
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Zvornik', 'radestojkic@gmail.com', 'Radisa', '064941267', 'rasko', 'Stojkic', 'raskica');
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINSISTEMA', 'Novi Sad', 'adminsys@adminsys', 'Vladimir', '063429989', 'adminsys', 'Krnic', 'adminsys');
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINSISTEMA', 'Novi Sad', 'adminsys@adminsys', 'Ilija', '063429989', 'adminsys', 'Grahovac', 'adminsys');
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINUSTANOVE','Novi Sad', 'adminshow@adminshow', 'Marko', '0635565239', 'adminsys', 'Lazic', 'adminshow');
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Beograd', 'dejan@dejan', 'Dejan', '0615565239', 'dejan', 'Stojkic', 'dejan', 1);
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Novi Sad', 'milan@milan', 'Milan', '0645565239', 'milan', 'Stankovic', 'milan', 1);

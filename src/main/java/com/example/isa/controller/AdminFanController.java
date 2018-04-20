@@ -250,7 +250,6 @@ public class AdminFanController {
         return new ResponseEntity<>( adi ,HttpStatus.OK);
     }
 
-
 //
 //    @RequestMapping(
 //            value = "/azurira",     // da promeni svoje podatke !!!!

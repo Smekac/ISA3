@@ -4,7 +4,7 @@ package com.example.isa.controller;
 import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.service.KorisnikService;
-import com.example.isa.dto.Credentials;
+import com.example.isa.DTO.Credentials;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class KorisnikController {
@@ -72,5 +73,16 @@ public class KorisnikController {
         return new ResponseEntity(korisnik,HttpStatus.OK);
     }*/
 
+
+    @RequestMapping(
+            value = "/svi",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<Korisnik>> sviKorisnici(){
+        List<Korisnik> korisnici = korisnikService.findAll();
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

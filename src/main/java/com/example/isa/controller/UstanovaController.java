@@ -22,7 +22,6 @@ public class UstanovaController {
     UstanovaService ustanovaService;
 
     @RequestMapping(
-            value = "/sve",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Ustanova>> getUstanove() {
@@ -40,6 +39,7 @@ public class UstanovaController {
     @RequestMapping(
             value = "/{id}/repertoar",
             method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<Projekcija>> getReperotoar(@PathVariable("id")Long idUstanove){
@@ -47,6 +47,17 @@ public class UstanovaController {
         return new ResponseEntity<List<Projekcija>>(repertoar, HttpStatus.OK);
     }
 
+
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Ustanova> kreirajUstanovu(@RequestBody Ustanova ustanova) {
+
+        Ustanova ustanove = ustanovaService.save(ustanova);
+        return new ResponseEntity<>(ustanove, HttpStatus.OK);
+    }
 
 
 }
