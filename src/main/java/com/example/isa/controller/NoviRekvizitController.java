@@ -5,6 +5,7 @@ import com.example.isa.Model.Korisnici.Korisnik;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
 import com.example.isa.Model.Ustanova;
+import com.example.isa.service.MessageService;
 import com.example.isa.service.NoviRekvizitService;
 import com.example.isa.service.RegPosetilacService;
 import com.example.isa.service.UstanovaService;
@@ -39,6 +40,9 @@ public class NoviRekvizitController {
 
     @Autowired
     private UstanovaService ustanovaService;
+
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping(
             value = "/sve",
@@ -90,20 +94,22 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
     //==========  !!!!!!!!!!!!!!!!!!!!!!!!!
 
     @RequestMapping(
-            value = "/reserve/{id}",
+            value = "/rezervisi/{id}",
             method = RequestMethod.GET)
-    public ResponseEntity<NoviRekvizit> reservationNewProp(@PathVariable("id") Long id){
+    public ResponseEntity<NoviRekvizit> rezervisiNoviRekvizit(@PathVariable("id") Long id){
         NoviRekvizit datiRekvizit = noviRekvizitService.findOne(id);
-        //
+
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session= attr.getRequest().getSession(true);
         RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
 
 
-
        if((datiRekvizit.getRegistrovaniKorisnik() == null)){
             datiRekvizit.setRegistrovaniKorisnik(ref);
-        }
+          // messageService.sendEmai();
+       }
+
+
         noviRekvizitService.save(datiRekvizit);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -125,10 +131,8 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NoviRekvizit> updatePropNew(@RequestBody NoviRekvizit noviRekvizit,@PathVariable("id") Long id) {
-//        NoviRekvizit updatedPropNew = noviRekvizitService.save(noviRekvizit);
-//        return new ResponseEntity<>(updatedPropNew, HttpStatus.OK);
 
-        NoviRekvizit old = noviRekvizitService.findOne(noviRekvizit.getId());   // noviRekvizit.getId()
+        NoviRekvizit menjni = noviRekvizitService.findOne(noviRekvizit.getId());   // noviRekvizit.getId()
 
       System.out.print(noviRekvizit.getNaslov() + " ________ " + noviRekvizit.getOpis());
         Ustanova show = ustanovaService.findOne(id);
@@ -137,14 +141,14 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
         Korisnik ref = (Korisnik) session.getAttribute("korisnik");
 
 
-        old.setAdminFan((AdminFanModel) ref);
-        old.setDatumKreiranja(new Date());
-        old.setUstanova(show);
-        old.setNaslov(noviRekvizit.getNaslov());
-        old.setOpis(noviRekvizit.getOpis());
-        old.setImage(noviRekvizit.getImage());
-        old.setCena(noviRekvizit.getCena());
-        NoviRekvizit updatedNewProp = noviRekvizitService.save(old);
+        menjni.setAdminFan((AdminFanModel) ref);
+        menjni.setDatumKreiranja(new Date());
+        menjni.setUstanova(show);
+        menjni.setNaslov(noviRekvizit.getNaslov());
+        menjni.setOpis(noviRekvizit.getOpis());
+        menjni.setImage(noviRekvizit.getImage());
+        menjni.setCena(noviRekvizit.getCena());
+        NoviRekvizit updatedNewProp = noviRekvizitService.save(menjni);
         return new ResponseEntity<>(updatedNewProp, HttpStatus.CREATED);
 
     }

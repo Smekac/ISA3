@@ -7,6 +7,7 @@ INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, usernam
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINUSTANOVE','Novi Sad', 'adminshow@adminshow', 'Marko', '0635565239', 'adminsys', 'Lazic', 'adminshow');
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Beograd', 'dejan@dejan', 'Dejan', '0615565239', 'dejan', 'Stojkic', 'dejan', 1);
 INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Novi Sad', 'milan@milan', 'Milan', '0645565239', 'milan', 'Stankovic', 'milan', 1);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Novi Sad', 'mironikos94@gmail.com', 'Dejan', '0645565239', 'sifra12', 'Stojko', 'Stojko', 1);
 
 INSERT INTO ustanova (id, name, type, addres, description, rating) VALUES (1, 'Arena Cineplex', 'BIOSKOP', 'Novi Sad Centar' , 'Opis neki bezvezeke',4 );
 INSERT INTO ustanova (id, name, type,addres, description, rating) VALUES (2, 'Teatar 212', 'POZORISTE','Zvornicankaa', 'patrolaa nazivOpisne predstavewe',3 );

@@ -7,6 +7,7 @@ import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.service.BidService;
 import com.example.isa.service.KorisceniRekvizitService;
 import com.example.isa.service.KorisnikService;
+import com.example.isa.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +40,9 @@ public class KorisceniRekvizitController {
 
     @Autowired
     private KorisnikService korisnikService;
+
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping(
             value = "/sve",
@@ -98,14 +102,35 @@ public class KorisceniRekvizitController {
     }
 
     @RequestMapping(
-            value = "/{usedPropId}/accept-bid/{acceptedBidId}",     // Radiiiiiiii u postmanu !!!!!
+            value = "/{Id}/pirihvacena-ponuda/{odobrena}",     // Radiiiiiiii u postmanu !!!!!
             method = RequestMethod.GET)
-    public ResponseEntity<Bid> acceptBid(@PathVariable Long usedPropId, @PathVariable Long acceptedBidId){
-        KorisceniRekvizit usedProp = korisceniRekvizitService.findOne(usedPropId);
-        Bid bid = bidService.findOne(acceptedBidId);
-        usedProp.setAcceptedBid( bid.getId() );     //  .setAcceptedBid( bid.getId() );
-        korisceniRekvizitService.save(usedProp);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Bid> acceptBid(@PathVariable Long Id, @PathVariable Long odobrena){
+        KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(Id);
+
+        Bid bid = bidService.findOne(odobrena); // pronadje onu koja je odobrena
+
+        // bid.getRegistrovaniKorisnik().getEmail();
+
+        messageService.sendEmai(bid.getRegistrovaniKorisnik().getEmail(),"Vasa litacija je odobrena cestitamo !!! za rekvizit : " + korisceniRekvizit.getNaslov());
+
+         List<Bid> sveLicitacije = korisceniRekvizit.getBids();
+
+         for (int i=0;i < sveLicitacije.size() ; i++) {
+
+             if(bid.getId() == sveLicitacije.get(i).getId()  ) {
+
+                 messageService.sendEmai(bid.getRegistrovaniKorisnik().getEmail(),"Vasa litacija je odobrena cestitamo !!! za rekvizit : " + korisceniRekvizit.getNaslov());
+
+             } else {
+                 messageService.sendEmai(sveLicitacije.get(i).getRegistrovaniKorisnik().getEmail(),"Vasa litacija NIJE prihvacena za rekvizit : " + korisceniRekvizit.getNaslov());
+
+             }
+         }
+
+
+        korisceniRekvizit.setAcceptedBid( bid.getId() );     //  .setAcceptedBid( bid.getId() );
+        korisceniRekvizitService.save(korisceniRekvizit);
+        return new ResponseEntity<>(bid,HttpStatus.OK);
     }
 
 
