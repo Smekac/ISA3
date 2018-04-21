@@ -103,15 +103,18 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
         HttpSession session= attr.getRequest().getSession(true);
         RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
 
+        NoviRekvizit snimljen = noviRekvizitService.proveri(ref.getUsername(),datiRekvizit);
 
-       if((datiRekvizit.getRegistrovaniKorisnik() == null)){
-            datiRekvizit.setRegistrovaniKorisnik(ref);
-          // messageService.sendEmai();
-       }
+//       if((datiRekvizit.getRegistrovaniKorisnik() == null)){
+//            datiRekvizit.setRegistrovaniKorisnik(ref);
+//            messageService.sendEmai(datiRekvizit.getRegistrovaniKorisnik().getEmail(),"Rezervisaliste uspjesno ovaj rekvizit");
+//       }
+        if( snimljen == null){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
 
-
-        noviRekvizitService.save(datiRekvizit);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        //noviRekvizitService.save(datiRekvizit);
+        return new ResponseEntity<>(snimljen,HttpStatus.CREATED);
     }
 
 

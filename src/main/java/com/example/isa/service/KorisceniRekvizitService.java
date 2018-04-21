@@ -1,5 +1,6 @@
 package com.example.isa.service;
 
+import com.example.isa.Model.Korisnici.AdminFanModel;
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
@@ -35,5 +36,9 @@ public interface KorisceniRekvizitService {
 
 
     List<KorisceniRekvizit> findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(Date data, TipKoriscenogRekvizita tipKoriscenogRekvizita );
+
+    KorisceniRekvizit potvrdi(KorisceniRekvizit korisceniRekvizit, AdminFanModel adminFan);
+
+    KorisceniRekvizit odbij(KorisceniRekvizit korisceniRekvizit, AdminFanModel adminFan);
 
 }

@@ -4,7 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 /**
  * Created by Smekac on 1/31/2018.
  */
@@ -32,6 +33,9 @@ public abstract class Rekvizit {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumKreiranja;
+
+    @Version
+    private Long verzija;
 
     public Rekvizit(){}
 
@@ -79,5 +83,13 @@ public abstract class Rekvizit {
 
     public void setDatumKreiranja(Date datumKreiranja) {
         this.datumKreiranja = datumKreiranja;
+    }
+
+    public Long getVerzija() {
+        return verzija;
+    }
+
+    public void setVerzija(Long verzija) {
+        this.verzija = verzija;
     }
 }

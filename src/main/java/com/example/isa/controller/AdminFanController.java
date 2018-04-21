@@ -177,11 +177,18 @@ public class AdminFanController {
         HttpSession session= attr.getRequest().getSession(true);
         Korisnik admin = (Korisnik) session.getAttribute("korisnik");
 
-        korisceniRekvizit.setAdminFan((AdminFanModel) admin);
+//        korisceniRekvizit.setAdminFan((AdminFanModel) admin);
+//
+//        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.PRIHVACEN);
+//        korisceniRekvizitService.save(korisceniRekvizit);
 
-        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.PRIHVACEN);
-        korisceniRekvizitService.save(korisceniRekvizit);
+        korisceniRekvizit = korisceniRekvizitService.potvrdi(korisceniRekvizit,(AdminFanModel) admin);  // !!!!!!!!!!!!!
+
+        if (korisceniRekvizit == null) {   // zato ako prodje vreme
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(korisceniRekvizit, HttpStatus.OK);
+
     }
 
     @RequestMapping(
@@ -193,9 +200,19 @@ public class AdminFanController {
     public ResponseEntity<KorisceniRekvizit> odbija(@PathVariable("id") Long id){
         //  List<KorisceniRekvizit> korisceniRekvizitII = korisceniRekvizitService.findByActiveUntilGreaterThanAndAcceptedBidNullAndStatusEquals(new Date(), TipKoriscenogRekvizita.NACEKANJU);
         //  KorisceniRekvizit korisceniRekvizit22 = noviRekvizitService.save(korisceniRekvizit);
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        Korisnik admin = (Korisnik) session.getAttribute("korisnik");
+
+
         KorisceniRekvizit korisceniRekvizit = korisceniRekvizitService.findOne(id);
-        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.ODBIJEN);
-        korisceniRekvizitService.save(korisceniRekvizit);
+//        korisceniRekvizit.setStatus(TipKoriscenogRekvizita.ODBIJEN);
+//        korisceniRekvizitService.save(korisceniRekvizit);
+       korisceniRekvizit = korisceniRekvizitService.odbij(korisceniRekvizit,(AdminFanModel) admin);    // !!!!!!
+
+        if (korisceniRekvizit == null) {   // zato ako prodje vreme
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(korisceniRekvizit, HttpStatus.OK);
     }
 

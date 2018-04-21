@@ -224,7 +224,6 @@ public class KorisceniRekvizitController {
         return new ResponseEntity<>(usedProps, HttpStatus.OK);
     }
 
-//
 //    @RequestMapping(
 //            value = "/promeniKorisceniRekvizit",
 //            method = RequestMethod.PUT,
