@@ -42,6 +42,8 @@ public class RezervacijaServiceImpl implements RezervacijaService{
         if(rez.getPozvani().size() + 1 != rez.getSjedista().size()){
             return null;
         }
+        ulogovan.setBodovi(ulogovan.getBodovi() +1l);
+
         Rezervacija saved = rezervacijaRepository.save(rez);
 
       String poruka = "";
