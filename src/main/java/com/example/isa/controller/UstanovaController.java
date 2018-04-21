@@ -22,7 +22,7 @@ public class UstanovaController {
     UstanovaService ustanovaService;
 
     @RequestMapping(
-            value="/sve",
+            value ="/{tipUstanove}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Ustanova>> getUstanove() {

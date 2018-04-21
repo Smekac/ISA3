@@ -65,16 +65,22 @@ public class PrijateljstvoServiceImpl implements PrijateljstvoService {
         RegPosetilacModel obrisiPrijatelja = regPosetilacRepository.findOne(idZabrisanje);
 
         if (obrisiPrijatelja != null && ulogovan != null){
-
+            Prijateljstvo p;
             for (int i=0; i<ulogovan.getPrijatelji().size(); i++){
-                if (ulogovan.getPrijatelji().get(i).getPrijatelj().getId()==obrisiPrijatelja.getId() ){
-                    ulogovan.getPrijatelji().remove(i);
+                 p = ulogovan.getPrijatelji().get(i);
+                if (p.getPrijatelj().getId()==obrisiPrijatelja.getId() ){
+                    ulogovan.getPrijatelji().remove(p);
+                    p.setStatus("obrisao");
+                    prijateljstvoRepository.save(p);
                     break;
                 }
             }
             for (int i=0;i<obrisiPrijatelja.getPrijatelji().size(); i++){
-                if (obrisiPrijatelja.getPrijatelji().get(i).getPrijatelj().getId() == ulogovan.getId()){
-                    obrisiPrijatelja.getPrijatelji().remove(i);
+                p = obrisiPrijatelja.getPrijatelji().get(i);
+                if (p.getPrijatelj().getId() == ulogovan.getId()){
+                    obrisiPrijatelja.getPrijatelji().remove(p);
+                    p.setStatus("obrisan");
+                    prijateljstvoRepository.save(p);
                     break;
                 }
             }
@@ -96,11 +102,12 @@ public class PrijateljstvoServiceImpl implements PrijateljstvoService {
         RegPosetilacModel prijatelj = regPosetilacRepository.findOne(id);
 
         if (prijatelj != null){
+            Prijateljstvo p;
             if (ulogovan.getPrijatelji().size() > 0){
                 for (int i=0;i<ulogovan.getPrijatelji().size(); i++){
-                    Prijateljstvo p = ulogovan.getPrijatelji().get(i);
+                     p = ulogovan.getPrijatelji().get(i);
                     if (p.getPrijatelj().getId() == prijatelj.getId() && p.getStatus().equals("na cekanju")){
-                        ulogovan.getPrijatelji().get(i).setStatus("prihvaceno");
+                        p.setStatus("prihvaceno");
                         prijateljstvoRepository.save(p);
                     }
                 }
@@ -108,9 +115,8 @@ public class PrijateljstvoServiceImpl implements PrijateljstvoService {
 
             if(prijatelj.getPrijatelji().size()>0){
                 for (int i = 0; i<prijatelj.getPrijatelji().size();i++){
-                    Prijateljstvo p = prijatelj.getPrijatelji().get(i);
-                    if(p.getPrijatelj().getId() == ulogovan.getId() && p.getStatus().equals("poslato")
-                            ){
+                     p = prijatelj.getPrijatelji().get(i);
+                    if(p.getPrijatelj().getId() == ulogovan.getId() && p.getStatus().equals("poslato")){
                         prijatelj.getPrijatelji().get(i).setStatus("prihvaceno");
                         prijateljstvoRepository.save(p);
                     }
