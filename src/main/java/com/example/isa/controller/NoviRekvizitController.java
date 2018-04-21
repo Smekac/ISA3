@@ -102,19 +102,28 @@ public ResponseEntity<NoviRekvizit> createNewProp(RegPosetilacModel REG, @Reques
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session= attr.getRequest().getSession(true);
         RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
+        ref.setBodovi(ref.getBodovi() + 2l);                                                // po dva boda za rezervaciju
 
-        NoviRekvizit snimljen = noviRekvizitService.proveri(ref.getUsername(),datiRekvizit);
+        try {
+
+            NoviRekvizit snimljen = noviRekvizitService.proveri(ref.getUsername(), datiRekvizit);
 
 //       if((datiRekvizit.getRegistrovaniKorisnik() == null)){
 //            datiRekvizit.setRegistrovaniKorisnik(ref);
 //            messageService.sendEmai(datiRekvizit.getRegistrovaniKorisnik().getEmail(),"Rezervisaliste uspjesno ovaj rekvizit");
 //       }
-        if( snimljen == null){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            if (snimljen == null) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+
+            //noviRekvizitService.save(datiRekvizit);
+            return new ResponseEntity<>(snimljen, HttpStatus.CREATED);
+
+        }catch (Exception e) {
+
+            return new ResponseEntity<>( HttpStatus.MULTIPLE_CHOICES);      // 300
         }
 
-        //noviRekvizitService.save(datiRekvizit);
-        return new ResponseEntity<>(snimljen,HttpStatus.CREATED);
     }
 
 

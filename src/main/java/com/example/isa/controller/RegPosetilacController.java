@@ -1,6 +1,7 @@
 package com.example.isa.controller;
 
 import com.example.isa.Model.Korisnici.RegPosetilacModel;
+import com.example.isa.Model.Korisnici.TipSkala;
 import com.example.isa.Model.Prijateljstvo;
 import com.example.isa.service.MessageService;
 import com.example.isa.service.RegPosetilacService;
@@ -52,6 +53,9 @@ public class RegPosetilacController {
         {
             return  new ResponseEntity<String>(errors.getAllErrors().toString(), HttpStatus.BAD_REQUEST);
         }
+
+        newUser.setBodovi(0L);
+        newUser.setTipskale(TipSkala.OSNOVNI);
 
         RegPosetilacModel savedRegisteredUser = regPosetilacService.save(newUser);
         //regPosetilacService.sendEmai(savedRegisteredUser);

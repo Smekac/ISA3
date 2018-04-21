@@ -20,6 +20,6 @@ public interface NoviRekvizitService {
     List<NoviRekvizit> findByRegistrovaniKorisnikIsNull();
 
    // NoviRekvizit findByRegistrovani
-   public NoviRekvizit proveri(String  username, NoviRekvizit rekvizit );
+   public NoviRekvizit proveri(String  username, NoviRekvizit rekvizit ) throws Exception;
 
 }

@@ -1,9 +1,6 @@
 package com.example.isa.controller;
 
-import com.example.isa.Model.Korisnici.AdminFanModel;
-import com.example.isa.Model.Korisnici.AdminSisModel;
-import com.example.isa.Model.Korisnici.AdminUstanoveModel;
-import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.*;
 import com.example.isa.service.AdminSisService;
 import com.example.isa.service.KorisnikService;
 import javafx.application.Application;
@@ -91,6 +88,9 @@ public class AdminSisController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<AdminSisModel> dodajAdminFana(@RequestBody AdminSisModel adminSisModel){
+        adminSisModel.setBodovi(0L);
+        adminSisModel.setTipskale(TipSkala.OSNOVNI);
+
         adminSisService.save( adminSisModel);
         return new ResponseEntity<>(adminSisModel,HttpStatus.CREATED);
     }
@@ -103,6 +103,9 @@ public class AdminSisController {
     )
     public ResponseEntity<AdminUstanoveModel> dodajAdminaUstgnove(@RequestBody AdminUstanoveModel adminUstanoveModel){
         //adminSisService.save( adminSisModel);
+        adminUstanoveModel.setBodovi(0L);
+        adminUstanoveModel.setTipskale(TipSkala.OSNOVNI);
+
         korisnikService.save(adminUstanoveModel);
 
         return new ResponseEntity<>(adminUstanoveModel,HttpStatus.CREATED);

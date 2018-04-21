@@ -1,13 +1,13 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 -- Kada se stavi ime import.sql radi !!!!
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Novi Sad', 'adminfan@adminfan', 'Ivan', '0635569989', 'adminfan', 'Perkovic', 'adminfan');
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINFAN', 'Zvornik', 'radestojkic@gmail.com', 'Radisa', '064941267', 'rasko', 'Stojkic', 'raskica');
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINSISTEMA', 'Novi Sad', 'adminsys@adminsys', 'Ilija', '063429989', 'adminsys', 'Grahovac', 'adminsys');
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username) VALUES ('ADMINUSTANOVE','Novi Sad', 'adminshow@adminshow', 'Marko', '0635565239', 'adminsys', 'Lazic', 'adminshow');
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Beograd', 'dejan@dejan', 'Dejan', '0615565239', 'dejan', 'Stojkic', 'dejan', 1);
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Novi Sad', 'milan@milan', 'Milan', '0645565239', 'milan', 'Stankovic', 'milan', 1);
-INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted) VALUES ('REGPOSETILAC','Novi Sad', 'mironikos94@gmail.com', 'Dejan', '0645565239', 'sifra12', 'Stojko', 'Stojko', 1);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, bodovi) VALUES ('ADMINFAN', 'Novi Sad', 'adminfan@adminfan', 'Ivan', '0635569989', 'adminfan', 'Perkovic', 'adminfan',0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, bodovi) VALUES ('ADMINFAN', 'Zvornik', 'radestojkic@gmail.com', 'Radisa', '064941267', 'rasko', 'Stojkic', 'raskica',0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, bodovi) VALUES ('ADMINSISTEMA', 'Novi Sad', 'adminsys@adminsys', 'Ilija', '063429989', 'adminsys', 'Grahovac', 'adminsys',0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, bodovi) VALUES ('ADMINUSTANOVE','Novi Sad', 'adminshow@adminshow', 'Marko', '0635565239', 'adminsys', 'Lazic', 'adminshow',0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted,bodovi) VALUES ('REGPOSETILAC','Beograd', 'dejan@dejan', 'Dejan', '0615565239', 'dejan', 'Stojkic', 'dejan', 1,0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted, bodovi) VALUES ('REGPOSETILAC','Novi Sad', 'milan@milan', 'Milan', '0645565239', 'milan', 'Stankovic', 'milan', 1,0);
+INSERT INTO korisnik (type, grad, email, ime, number, password, prezime, username, accepted, bodovi) VALUES ('REGPOSETILAC','Novi Sad', 'mironikos94@gmail.com', 'Dejan', '0645565239', 'sifra12', 'Stojko', 'Stojko', 1,0);
 
 INSERT INTO ustanova (id, name, type, addres, description, rating) VALUES (1, 'Arena Cineplex', 'BIOSKOP', 'Novi Sad Centar' , 'Opis neki bezvezeke',4 );
 INSERT INTO ustanova (id, name, type,addres, description, rating) VALUES (2, 'Teatar 212', 'POZORISTE','Zvornicankaa', 'patrolaa nazivOpisne predstavewe',3 );

@@ -2,6 +2,7 @@ package com.example.isa.controller;
 
 import com.example.isa.Model.Korisnici.AdminFanModel;
 import com.example.isa.Model.Korisnici.Korisnik;
+import com.example.isa.Model.Korisnici.TipSkala;
 import com.example.isa.Model.Rekviziti.KorisceniRekvizit;
 import com.example.isa.Model.Rekviziti.NoviRekvizit;
 import com.example.isa.Model.Rekviziti.TipKoriscenogRekvizita;
@@ -67,6 +68,10 @@ public class AdminFanController {
     )
 
     public ResponseEntity<AdminFanModel> kreirajAdminaFana(@Validated @RequestBody AdminFanModel fanAdmin) {
+        fanAdmin.setBodovi(0L);
+        fanAdmin.setTipskale(TipSkala.OSNOVNI);
+
+
         AdminFanModel kreiraniAdmin = adminFanService.save(fanAdmin);
         return new ResponseEntity<>(kreiraniAdmin,HttpStatus.CREATED);
     }

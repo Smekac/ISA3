@@ -53,8 +53,15 @@ public abstract class Korisnik implements Serializable{
     @Column(nullable = false)
     private String number;
 
+    @Column(nullable = true)
+    private Long bodovi;            // Brojimo broj akcija ..
+
     @Column(name="type", nullable=false, updatable=false, insertable=false)
     private String tipKorisnika;
+
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private TipSkala tipskale;
 
     public Korisnik(){}
 
@@ -138,5 +145,21 @@ public abstract class Korisnik implements Serializable{
 
     public void setTipKorisnika(String tipKorisnika) {
         this.tipKorisnika = tipKorisnika;
+    }
+
+    public Long getBodovi() {
+        return bodovi;
+    }
+
+    public void setBodovi(Long bodovi) {
+        this.bodovi = bodovi;
+    }
+
+    public TipSkala getTipskale() {
+        return tipskale;
+    }
+
+    public void setTipskale(TipSkala tipskale) {
+        this.tipskale = tipskale;
     }
 }

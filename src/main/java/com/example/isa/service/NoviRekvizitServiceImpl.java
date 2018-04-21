@@ -57,11 +57,11 @@ public class NoviRekvizitServiceImpl implements  NoviRekvizitService{
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public NoviRekvizit proveri(String username, NoviRekvizit rekvizit) {
+    public NoviRekvizit proveri(String username, NoviRekvizit rekvizit) throws Exception {
 
-//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//        HttpSession session= attr.getRequest().getSession(true);
-//        RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session= attr.getRequest().getSession(true);
+        RegPosetilacModel ref = (RegPosetilacModel) session.getAttribute("korisnik");
 
         if (rekvizit.getRegistrovaniKorisnik() != null) {
             return null;
@@ -73,10 +73,11 @@ public class NoviRekvizitServiceImpl implements  NoviRekvizitService{
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
+
             e.printStackTrace();
         }
 
-
+        regPosetilacModel.setBodovi(regPosetilacModel.getBodovi() + 2l);
         regPosetilacService.save(regPosetilacModel);
         rekvizit.setRegistrovaniKorisnik(regPosetilacModel);
         return save(rekvizit);
